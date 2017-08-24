@@ -2,6 +2,8 @@
 // request example:
 // "https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=a4e123dfc66f4cfcb2a4bb4e94248c29"
 
+//Remember -- these can't _return_ the data from the function. We'd need to save the response
+//somewhere in our ajax done function in order to do anything with them.
 
 function getSources() {
   // var categories = ["business", "entertainment", "gaming",
@@ -24,7 +26,7 @@ function getSources() {
     url: queryUrl,
     method: "GET"
   }).done(function(response){
-    console.log(response);
+    console.log(response); //TODO work with our source list here.
   });
 }
 
@@ -44,6 +46,6 @@ function getNews(source) {
     url: queryUrl,
     method: "GET"
   }).done(function(response){
-    console.log(response);
+    console.log(response); //TODO work with our news item here.
   });
 }
