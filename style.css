@@ -1,0 +1,21 @@
+.container{
+    background-color: #000;
+
+
+
+}
+.jumbotron{
+    background-color: #454545;
+    font-family: 'Righteous', cursive;
+    color: #ff5252;
+    text-shadow: #008080;
+
+}
+.panel-body{
+    background-color: #454545;
+    font-family: 'Raleway', sans-serif;
+    color: #ff5252;
+
+
+
+}
