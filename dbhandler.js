@@ -26,7 +26,21 @@ var userData ={
 
 //response example:
 
-var response = {
+var gifData = {
+  usedIn: [
+    {
+      timestamp: "08/24/17 05:00",
+      article: "https://www.NYT.com...."
+    },
+    {
+      timestamp: "08/24/17 05:15",
+      article: "https://www.NYT.com...."
+    },
+    {
+      timestamp: "08/24/17 05:35",
+      article: "https://www.NYT.com...."
+    }
+  ],
   rating: "100",
   gifUrl: "https://www.giphy...."
 };
