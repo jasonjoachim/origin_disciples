@@ -30,23 +30,24 @@ firebase.initializeApp(config);
 
 // function
 
-function writeNewPost(uid, name, articleURL, reaction, gifURL) {
+function postNewResponse(uid, name, articleURL, reaction, gifURL) {
   // A post entry.
-  var postData = {
+  var respData = {
     user: uid,
     name: name,
     article: articleURL,
     reactionText:reaction,
-    gifURL: gifURL
+    gifURL: gifURL,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
   };
 
   // Get a key for a new Post.
-  var newPostKey = dbref.child('responses').push().key;
+  var newKey = dbref.child('responses').push().key;
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
-  updates['/responses/' + newPostKey] = postData;
-  updates['/user-responses/' + uid + '/' + newPostKey] = postData;
+  updates['/responses/' + newKey] = respData;
+  updates['/user-responses/' + uid + '/' + newKey] = respData;
 
   return firebase.database().ref().update(updates);
 }
