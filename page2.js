@@ -11,12 +11,12 @@
 
 var database = firebase.database();
 
-database.ref().limitToFirst(10).on("child_added", function(snapshot){
+database.ref("/responses").on("child_added", function(snapshot){
 	
-	var gif = snapshot.gif;
-	var link = snapshot.link;
+	var gif = snapshot.val().gifURL;
+	var link = snapshot.val().article;
 
-	var newLink = $("<a href='" + link + "'><img src='" + gif + "'></a>");
+	var newLink = $("<div class='gif-display-boxes'> <a target='_blank' href='" + link + "'><img src='" + gif + "'></a> </div> <br>");
 	
 	$(".gif-dump").append(newLink);
 });
