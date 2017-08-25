@@ -1,7 +1,6 @@
 // $(document).on("ready", function(){
 
-	//MAIN
-	//MAIN
+
 	//MAIN
 	var article = getNews();
 	var reaction; //gets updated when 'i feel' button is clicked
@@ -9,7 +8,7 @@
 	var head;
     var subhead;
     var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
-    var source; 
+    var source;
 
     function pickNewSource () {
    	randomNumber = (Math.round(Math.random()*3));
@@ -21,16 +20,23 @@
     // Gets and displays news
     getNews(source);
 
-	
+		$("#emo-form").on("click", function (event){
+			console.log("You hit enter?");
+			// displayGIF();
+			event.preventDefault();
+		});
 
-	$("#i-feel").on("click", function (){		
-		displayGIF();
-	});
+
+		$("#i-feel", "#emo-input").on("click", function (event){
+			console.log("You hit enter?");
+			displayGIF();
+			event.preventDefault();
+		});
 
 	// CLICK HANDLER THAT ACTUALLY SAVES A CARD TO FIREBASE AND RESETS EVERYTHING:
 	$(".gif-dump").on("click", ".gif", function(){
 		var gifURL = $(this).attr("src");
-		//function postNewResponse(uid, name, articleURL, reaction, gifURL) 
+		//function postNewResponse(uid, name, articleURL, reaction, gifURL)
 		postNewResponse("user74", "name", article, reaction, gifURL);
 		resetAll();
 	})
@@ -40,11 +46,11 @@
 	// var headline;
 	// var subhead;
 
-	// Returns 10 popular articles 
+	// Returns 10 popular articles
 	function getNews(source) {
 
 	  var queryUrl = "https://newsapi.org/v1/articles?";
-	      queryUrl += 
+	      queryUrl +=
 	      $.param({
 	        'source': source,
 	        'apiKey': 'a4e123dfc66f4cfcb2a4bb4e94248c29',
@@ -64,7 +70,7 @@
 
 	    console.log(response.articles[randomArticleNumber].title); //TODO work with our news item here.
 	    console.log(response.articles[randomArticleNumber].description); //TODO work with our news item here.
-	    
+
 	    head = (response.articles[randomArticleNumber].title);
 
 	    subhead = (response.articles[randomArticleNumber].description);
@@ -73,7 +79,7 @@
 	    $("#subhead").html(subhead);
 
 	    article = response.articles[randomArticleNumber].url;
- 
+
 	  });
 	}
 
@@ -96,13 +102,13 @@
 		                  +"?q=" + reaction
 		                  +"&api_key=" + apikey
 		  	//loop through ajax requests to get 10 images
-		  	for (i=0; i<10; i++){ 
-		    
+		  	for (i=0; i<10; i++){
+
 			    $.ajax({
 			    url: queryURL,
 			    method: "GET"
 			    }).done(function(response){
-			     
+
 			    //display each
 			    var newGif = $("<img>")
 			    newGif.attr("src", response.data.image_original_url);

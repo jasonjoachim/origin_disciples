@@ -14,7 +14,7 @@ body{
 .dropdown {
     position: relative;
     display: inline-block;
-    
+
 }
 
 .dropdown-content {
@@ -84,3 +84,7 @@ button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+/*header, #user-area{
+  display: none;
+}*/
