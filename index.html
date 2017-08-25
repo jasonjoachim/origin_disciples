@@ -24,12 +24,23 @@
 
   </head>
   <body>
-    <!-- this will be for the trending tweet -->
+  <!--navigation  -->
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown</button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div>
+
+
+    <!-- this will be for the trending news item -->
     <div class="container">
       <div class="jumbotron">
         <h1>My Response When</h1>
-          <p>React to a trending topic, then choose a Giph that best reflects your feeling towards it.</p>
-      </div>
+          <p>Giph Reacts to News</p>
+    </div>
       <div class="panel panel-default">
       <div class="panel-body">Trending Topic</div>
         <div class="trending tweet">
@@ -37,7 +48,7 @@
       <div class="panel panel-default">
         <div class="panel-body">How does this make you feel?</div>
           <form class="form-inline">
-            <div class="form-group">
+            <div class="form-group" id="emoField">
               <label for="emo-input">Emotional Response</label>
               <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
               <button type="button" id="i-feel">I feel!</button>
@@ -45,7 +56,7 @@
           </form>
       </div>
       <div class="panel panel-default">
-        <div class="panel-body">Pick a Giph!</div>
+        <div class="panel-body" id"gif-dump">Pick a Giph!</div>
       </div>
 
 
