@@ -43,7 +43,17 @@
     </div>
       <div class="panel panel-default">
       <div class="panel-body">Trending Topic</div>
-        <div class="trending tweet">
+        <div class="news" id="news-container">
+
+        <span class="news" id="head"></span>
+
+        <br>
+        <br>
+        <br>
+
+        <span class="news" id="subhead"></span>
+
+        </div>
 
       <div class="panel panel-default">
         <div class="panel-body">How does this make you feel?</div>
@@ -61,6 +71,24 @@
 
 
 
-    <script type="text/javascript"></script>
+    <script src="assets/javascript/news.js"></script>
+
+    <script type="text/javascript">
+
+    var head;
+    var subhead;
+
+    var randomNumber = (Math.round(Math.random()*3));
+    console.log(randomNumber);
+
+    var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
+
+    var source = sourceArray[randomNumber];
+
+    // Gets and displays news
+    getNews(source);
+
+    </script>
+
   </body>
 </html>
