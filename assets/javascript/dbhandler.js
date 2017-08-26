@@ -28,15 +28,17 @@ function init() {
 
 
 // Store a response to the DB. Writes in /responses/ and /user-responses/
+// firebase.auth().currentUser.displayName;
+// firebase.auth().currentUser.uid
 
-function postNewResponse(uid, name, articleURL, reaction, gifURL) {
+function postNewResponse(articleURL, reaction, gifURL) {
   // A post entry.
   var db = firebase.database();
   var dbref = db.ref();
 
   var respData = {
-    user: uid,
-    name: name,
+    user: firebase.auth().currentUser.uid,
+    name: firebase.auth().currentUser.displayName,
     article: articleURL,
     reactionText:reaction,
     gifURL: gifURL,
@@ -132,6 +134,8 @@ function initApp() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+
+      //TODO move this out to main.js --
       document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
       document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
       document.getElementById('user-area').style.display = 'block'; //Show the hidden areas.
@@ -149,8 +153,8 @@ console.log(JSON.stringify(user, null, '  '));
       // document.getElementById('sign-in-status').textContent = 'Signed out';
       document.getElementById('sign-in').textContent = 'Sign in with GitHub';
 
-      document.getElementsByTagName('header')[0].style.display = 'none'; //Hide interaction areas
-      document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
+      // document.getElementsByTagName('header')[0].style.display = 'none'; //Hide interaction areas
+      // document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
       document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
       // document.getElementById('account-details').textContent = 'null';

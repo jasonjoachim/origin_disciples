@@ -60,6 +60,9 @@ body{
     font-family: 'Raleway', sans-serif;
     color: #ff5252;
 }
+.panel-default {
+  border: none;
+}
 #emoField{
     padding: 20px;
 }
@@ -86,5 +89,69 @@ button:active {
 }
 
 header, #user-area{
-  display: none;
+  /*display: none;*/
+}
+
+
+/*Used for history pages*/
+.timeline{
+  display: grid;
+  /*grid-template-columns: 1fr 1fr;*/
+  grid-template-areas: "resp resp";
+  grid-gap: 20px;
+  /*justify-items: center;*/
+}
+
+/*Main news article display*/
+.news-article {
+  display: grid;
+  grid-template-areas: "head head head"
+                       "blurb blurb gif"
+                       "time react react";
+  grid-gap: 10px;
+  /*grid-template-columns: 1fr 1fr 200px;*/
+  /*grid-template-rows: auto 200px;*/
+  justify-self: center;
+  /*max-width: 400px;*/
+  min-width: 240px;
+  padding: 20px;
+  background-color: #454545;
+  /*border-radius: 5%;*/
+}
+.news-article .headline {
+  grid-area: head;
+  background-color: #454545;
+  font-family: 'Righteous', cursive;
+
+  color: #ff5052;
+  text-shadow: 4px 4px 8px #008070;
+}
+.news-article .response-time {
+  grid-area: "time";
+  color: white;
+}
+.news-article .blurb {
+  grid-area:blurb;
+  color: white;
+  font-size: 16px;
+}
+.news-article .gif {
+  grid-area:gif;
+}
+.news-article .reaction {
+  grid-area:react;
+  justify-self: center;
+  color: white;
+  font-family: fantasy;
+  font-style: italic;
+  font-size: 1.25em;
+  /*text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;*/
+}
+
+.news-article img {
+  max-height: 200px;
+  max-width: 200px;
 }

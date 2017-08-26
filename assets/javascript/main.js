@@ -1,8 +1,7 @@
 
 //MAIN
-var article;
 var reaction; //gets updated when 'i feel' button is clicked
-var article;
+var articleData;
 var head;
 var subhead;
 var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
@@ -48,7 +47,10 @@ $("#emo-input").keypress(function(event) {
 	$(".gif-dump").on("click", ".gif", function(){
 
 		var gifURL = $(this).attr("src");
-		postNewResponse(article, reaction, gifURL);
+		console.log(articleData);
+		console.log(reaction);
+		console.log(gifURL);
+		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
 	})
 
@@ -71,7 +73,7 @@ function initDB() {
 function pickNewSource () {
  	randomNumber = (Math.round(Math.random()*3));
   // console.log(randomNumber);
-  return source = sourceArray[randomNumber];
+  return sourceArray[randomNumber];
 }
 
 //GET ALL THE NEWS
@@ -97,15 +99,17 @@ console.log(source);
     console.log(randomArticleNumber);
 
 		var newsItem = response.articles[randomArticleNumber];
-    head = (newsItem.title);
-    subhead = (newsItem.description);
+    // head = (newsItem.title);
+    // subhead = (newsItem.description);
 		// var newsURL = newsItem.url;
 		// var imageURL = newsItem.urlToImage;
 
-    $("#head").html(head);
-    $("#subhead").html(subhead);
+		$("#news-container").append(newsItemHTML(newsItem));
 
-    article = newsItem;
+		// $("#head").html(head);
+    // $("#subhead").html(subhead);
+
+    articleData = newsItem;
 
   });
 };
@@ -169,6 +173,34 @@ function putGifOnPage(url) {
 	$(".gif-dump").append(newGif);
 }
 
+//Takes an object with headline, description, url, imageurl and generates proper HTML
+//If more args are passed in, it will generate additional HTML to display the user response,
+//GIF, and timestamp.
+function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
+	var newNewsItem = $("<div>").attr({class:"news-article", id: "fetched-article"});
+	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
+	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
+	var image;
+	if (gifURL) {
+		image = $("<img>").attr({class:"gif", src:gifURl});
+		if (responseTime && reaction) {
+			var responseTime = $("<div>").attr("class","response-time").text(timestamp);
+			var reaction = $("<div>").attr("class","reaction").text(reaction);
+			newNewsItem.append(responseTime, reaction);
+		}
+	} else {
+		image = $("<img>").attr({class:"gif", src:newsItem.urlToImage});
+	}
+	newNewsItem.append(headline, blurb, image);
+	return newNewsItem;
+}
+
+function displayAllFromUser(uid){
+	firebase.database().ref('/user-responses/' + userId).once('value').then(function(snapshot) {
+	  console.log(snapshot.val());
+	});
+}
+
 // Accepts articleData as an obj, reaction string, and gifURL string. Pushes to firebase.
 function postNewResponse(articleData, reaction, gifURL) {
 
@@ -196,6 +228,8 @@ function postNewResponse(articleData, reaction, gifURL) {
 function resetAll() {
 	$("#emo-input").val("")
 	reaction = "";
+	articleData = {};
+	$("#Snews-container").empty();
 	$(".gif-dump").empty();
 	source = pickNewSource();
 	getNews(source);
