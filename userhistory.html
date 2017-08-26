@@ -37,7 +37,7 @@
         grid-gap: 20px;
         /*justify-items: center;*/
       }
-      .response {
+      .news-article {
         display: grid;
         grid-template-areas: "head head head"
                              "blurb blurb gif"
@@ -52,7 +52,7 @@
         background-color: #454545;
         border-radius: 5%;
       }
-      .response .headline {
+      .news-article .headline {
         grid-area: head;
         background-color: #454545;
         font-family: 'Righteous', cursive;
@@ -60,19 +60,19 @@
         color: #ff5052;
         text-shadow: 4px 4px 8px #008070;
       }
-      .response .response-time {
+      .news-article .response-time {
         grid-area: "time";
         color: white;
       }
-      .response .blurb {
+      .news-article .blurb {
         grid-area:blurb;
         color: white;
         font-size: 16px;
       }
-      .response .gif {
+      .news-article .gif {
         grid-area:gif;
       }
-      .response .reaction {
+      .news-article .reaction {
         grid-area:react;
         justify-self: center;
         color: white;
@@ -128,7 +128,7 @@
     </div>
 
 <div class="timeline">
-  <div class="response" id="timestamp">
+  <div class="news-article" id="some-timestamp">
     <div class="response-time">
       Aug 23, 5:15am
     </div>

@@ -229,7 +229,7 @@ function resetAll() {
 	$("#emo-input").val("")
 	reaction = "";
 	articleData = {};
-	$("#Snews-container").empty();
+	$("#news-container").empty();
 	$(".gif-dump").empty();
 	source = pickNewSource();
 	getNews(source);
