@@ -35,10 +35,11 @@ function postNewResponse(articleURL, reaction, gifURL) {
   // A post entry.
   var db = firebase.database();
   var dbref = db.ref();
+  var user = firebase.auth().currentUser
 
   var respData = {
-    user: firebase.auth().currentUser.uid,
-    name: firebase.auth().currentUser.displayName,
+    user: user.uid,
+    name: user.displayName,
     article: articleURL,
     reactionText:reaction,
     gifURL: gifURL,
@@ -51,7 +52,7 @@ function postNewResponse(articleURL, reaction, gifURL) {
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
   updates['/responses/' + newKey] = respData;
-  updates['/user-responses/' + uid + '/' + newKey] = respData;
+  updates['/user-responses/' + user.uid + '/' + newKey] = respData;
 
   return dbref.update(updates);
 }
