@@ -8,7 +8,13 @@ var subhead;
 var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
 var source;
 
-init();
+
+window.onload = function() {
+	init();
+	initApp();
+
+  //TODO get the stuff AFTER we've logged in.
+};
 
 source = pickNewSource();
 // Gets and displays news
@@ -34,6 +40,7 @@ $("#emo-input").keypress(function(event) {
 
 		$("#emo-input").val('');
 		reaction = input;
+
 	}
 });
 
@@ -41,7 +48,7 @@ $("#emo-input").keypress(function(event) {
 	$(".gif-dump").on("click", ".gif", function(){
 
 		var gifURL = $(this).attr("src");
-		postNewResponse("user74", "name", article, reaction, gifURL);
+		postNewResponse(article, reaction, gifURL);
 		resetAll();
 	})
 
@@ -88,7 +95,7 @@ console.log(source);
   	// console.log("news url?")
   	console.log(response);
 
-    var randomArticleNumber = Math.round(Math.random() * response.articles.length);
+    var randomArticleNumber = Math.round(Math.random() * (response.articles.length - 1));
     console.log(randomArticleNumber);
 
 		var newsItem = response.articles[randomArticleNumber];
@@ -164,9 +171,14 @@ function putGifOnPage(url) {
 	$(".gif-dump").append(newGif);
 }
 
-function postNewResponse(uid, name, articleURL, reaction, gifURL) {
-  // A post entry.
-  var respData = {
+function postNewResponse(articleURL, reaction, gifURL) {
+
+  // Get a key for a new Post.
+  var newKey = firebase.database().ref().child('responses').push().key;
+	var uid = firebase.auth().currentUser.uid;
+	var name = firebase.auth().currentUser.displayName;
+	// A post entry.
+	var respData = {
     user: uid,
     name: name,
     article: articleURL,
@@ -174,10 +186,6 @@ function postNewResponse(uid, name, articleURL, reaction, gifURL) {
     gifURL: gifURL,
     timestamp: firebase.database.ServerValue.TIMESTAMP
   };
-
-  // Get a key for a new Post.
-  var newKey = firebase.database().ref().child('responses').push().key;
-
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
   updates['/responses/' + newKey] = respData;

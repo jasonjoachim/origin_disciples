@@ -85,6 +85,6 @@ button:active {
   transform: translateY(4px);
 }
 
-/*header, #user-area{
+header, #user-area{
   display: none;
-}*/
+}
