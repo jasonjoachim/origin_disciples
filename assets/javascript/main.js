@@ -77,15 +77,13 @@ function pickNewSource () {
 //GET ALL THE NEWS
 // Returns 10 popular articles
 function getNews(source) {
+// function getNews(source, sortBy) { //
 console.log(source);
 
-  var queryUrl = "https://newsapi.org/v1/articles?";
-      queryUrl +=
-      $.param({
-        'source': source,
-        'apiKey': 'a4e123dfc66f4cfcb2a4bb4e94248c29',
-        // 'sortBy': 'latest'
-      });
+  var queryUrl = "https://newsapi.org/v1/articles?"
+        +'&source=' + source
+     // + '&sortBy=': sortBy
+        + '&apiKey=a4e123dfc66f4cfcb2a4bb4e94248c29';
 
   //send off our resquest
   $.ajax({
@@ -107,7 +105,7 @@ console.log(source);
     $("#head").html(head);
     $("#subhead").html(subhead);
 
-    article = newsItem.url;
+    article = newsItem;
 
   });
 };
@@ -171,7 +169,8 @@ function putGifOnPage(url) {
 	$(".gif-dump").append(newGif);
 }
 
-function postNewResponse(articleURL, reaction, gifURL) {
+// Accepts articleData as an obj, reaction string, and gifURL string. Pushes to firebase.
+function postNewResponse(articleData, reaction, gifURL) {
 
   // Get a key for a new Post.
   var newKey = firebase.database().ref().child('responses').push().key;
@@ -181,7 +180,7 @@ function postNewResponse(articleURL, reaction, gifURL) {
 	var respData = {
     user: uid,
     name: name,
-    article: articleURL,
+    article: articleData,
     reactionText:reaction,
     gifURL: gifURL,
     timestamp: firebase.database.ServerValue.TIMESTAMP
