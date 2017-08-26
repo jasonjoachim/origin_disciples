@@ -7,6 +7,7 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,7 +19,6 @@
     <script type="text/javascript" src="assets/javascript/dbhandler.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway|Righteous" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
 
@@ -68,42 +68,46 @@
         <div class="panel-body">How does this make you feel?</div>
           <form class="form-inline">
             <div class="form-group" id="emoField">
+
               <form class="" id="emo-form" method="post">
                 <label for="emo-input">Emotional Response</label>
+
                 <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
+
                 <button type="button" id="i-feel">I feel!</button>
               </form>
 
             </div>
           </form>
       </div>
+
       <div class="panel panel-default">
-        <div class="panel-body" id"gif-dump">Pick a Giph!</div>
+        <div class="panel-body" id"gif-dump">What does this feeling look like?</div>
       </div>
+
+
       <div class="gif-dump"></div>
 
+      <script src="assets/javascript/news.js"></script>
 
+      <script type="text/javascript" src="assets/main.js"></script>
 
-    <script src="assets/javascript/news.js"></script>
+      <script>
+    //
+    // var head;
+    // var subhead;
+    //
+    // var randomNumber = (Math.round(Math.random()*3));
+    // console.log(randomNumber);
+    //
+    // var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
+    //
+    // var source = sourceArray[randomNumber];
+    //
+    // // Gets and displays news
+    // getNews(source);
 
-    <script type="text/javascript" src="assets/main.js"></script>
-
-    <script>
-
-    var head;
-    var subhead;
-
-    var randomNumber = (Math.round(Math.random()*3));
-    console.log(randomNumber);
-
-    var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
-
-    var source = sourceArray[randomNumber];
-
-    // Gets and displays news
-    getNews(source);
-
-    </script>
+      </script>
 
   </body>
 </html>

@@ -33,11 +33,11 @@
 var headline;
 var subhead;
 
-// Returns 10 popular articles 
+// Returns 10 popular articles
 function getNews(source) {
 
   var queryUrl = "https://newsapi.org/v1/articles?";
-      queryUrl += 
+      queryUrl +=
       $.param({
         'source': source,
         'apiKey': 'a4e123dfc66f4cfcb2a4bb4e94248c29',
@@ -53,9 +53,9 @@ function getNews(source) {
     var randomArticleNumber = (Math.round(Math.random()*3));
     console.log(randomArticleNumber);
 
-    console.log(response.articles[randomArticleNumber].title); //TODO work with our news item here.
-    console.log(response.articles[randomArticleNumber].description); //TODO work with our news item here.
-    
+    // console.log(response.articles[randomArticleNumber].title); //TODO work with our news item here.
+    // console.log(response.articles[randomArticleNumber].description); //TODO work with our news item here.
+
     head = (response.articles[randomArticleNumber].title);
 
     subhead = (response.articles[randomArticleNumber].description);

@@ -1,182 +1,195 @@
-// $(document).on("ready", function(){
+
+//MAIN
+var article;
+var reaction; //gets updated when 'i feel' button is clicked
+var article;
+var head;
+var subhead;
+var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
+var source;
+
+init();
+
+source = pickNewSource();
+// Gets and displays news
+getNews(source);
 
 
-	//MAIN
-	var article = getNews();
-	var reaction; //gets updated when 'i feel' button is clicked
-	var article;
-	var head;
-    var subhead;
-    var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
-    var source;
+// ========== Click Handlers ===========
 
-    function pickNewSource () {
-   	randomNumber = (Math.round(Math.random()*3));
-    console.log(randomNumber);
-    return source = sourceArray[randomNumber];
-    }
+$("#i-feel").on("click", function (event){
+	// displayRandomGif();
+	// displayGIF();
+	event.preventDefault();
+});
 
-    source = pickNewSource();
-    // Gets and displays news
-    getNews(source);
+$("#emo-input").keypress(function(event) {
+//Enter key
+	if (event.which == 13) {
+		event.preventDefault();
+		var input = $("#emo-input").val();
+		console.log(input);
+		input ? getFromGiphy("translate", input)
+			: getFromGiphy("random", input);
 
-		$("#emo-form").on("click", function (event){
-			console.log("You hit enter?");
-			// displayGIF();
-			event.preventDefault();
-		});
-
-
-		$("#i-feel", "#emo-input").on("click", function (event){
-			console.log("You hit enter?");
-			displayGIF();
-			event.preventDefault();
-		});
+		$("#emo-input").val('');
+		reaction = input;
+	}
+});
 
 	// CLICK HANDLER THAT ACTUALLY SAVES A CARD TO FIREBASE AND RESETS EVERYTHING:
 	$(".gif-dump").on("click", ".gif", function(){
+
 		var gifURL = $(this).attr("src");
-		//function postNewResponse(uid, name, articleURL, reaction, gifURL)
 		postNewResponse("user74", "name", article, reaction, gifURL);
 		resetAll();
 	})
 
-	// //GET NEWS
-	// //GET ALL THE NEWS
-	// var headline;
-	// var subhead;
 
-	// Returns 10 popular articles
-	function getNews(source) {
 
-	  var queryUrl = "https://newsapi.org/v1/articles?";
-	      queryUrl +=
-	      $.param({
-	        'source': source,
-	        'apiKey': 'a4e123dfc66f4cfcb2a4bb4e94248c29',
-	        // 'sortBy': 'latest'
-	      });
+// ======= Function Definitions ========
 
-	  //send off our resquest
-	  $.ajax({
-	    url: queryUrl,
-	    method: "GET"
-	  }).done(function(response){
-	  	console.log("news url?")
-	  	console.log(response);
+function initDB() {
+  config = {
+   apiKey: "AIzaSyDscLKYL_bkXbpsMx0W3eZBlORMwco9qOI",
+   authDomain: "culturecanary-859bc.firebaseapp.com",
+   databaseURL: "https://culturecanary-859bc.firebaseio.com",
+   projectId: "culturecanary-859bc",
+   storageBucket: "culturecanary-859bc.appspot.com",
+   messagingSenderId: "559681967479"
+ };
+ firebase.initializeApp(config);
+}
 
-	    var randomArticleNumber = (Math.round(Math.random()*3));
-	    console.log(randomArticleNumber);
+function pickNewSource () {
+ 	randomNumber = (Math.round(Math.random()*3));
+  // console.log(randomNumber);
+  return source = sourceArray[randomNumber];
+}
 
-	    console.log(response.articles[randomArticleNumber].title); //TODO work with our news item here.
-	    console.log(response.articles[randomArticleNumber].description); //TODO work with our news item here.
+//GET ALL THE NEWS
+// Returns 10 popular articles
+function getNews(source) {
+console.log(source);
 
-	    head = (response.articles[randomArticleNumber].title);
+  var queryUrl = "https://newsapi.org/v1/articles?";
+      queryUrl +=
+      $.param({
+        'source': source,
+        'apiKey': 'a4e123dfc66f4cfcb2a4bb4e94248c29',
+        // 'sortBy': 'latest'
+      });
 
-	    subhead = (response.articles[randomArticleNumber].description);
+  //send off our resquest
+  $.ajax({
+    url: queryUrl,
+    method: "GET"
+  }).done(function(response){
+  	// console.log("news url?")
+  	console.log(response);
 
-	    $("#head").html(head);
-	    $("#subhead").html(subhead);
+    var randomArticleNumber = Math.round(Math.random() * response.articles.length);
+    console.log(randomArticleNumber);
 
-	    article = response.articles[randomArticleNumber].url;
+		var newsItem = response.articles[randomArticleNumber];
+    head = (newsItem.title);
+    subhead = (newsItem.description);
+		// var newsURL = newsItem.url;
+		// var imageURL = newsItem.urlToImage;
 
-	  });
+    $("#head").html(head);
+    $("#subhead").html(subhead);
+
+    article = newsItem.url;
+
+  });
+};
+
+
+//GET THE GIFS
+//GET ALL THE GIFS
+
+function getFromGiphy(callType, string) {
+	var paths = {random:"/v1/gifs/random?", translate:"/v1/gifs/translate?"},
+			url = "https://api.giphy.com" + paths[callType] + "&api_key=60a662cf5d774be4922ed09719bdb709";
+
+	if (paths.hasOwnProperty(callType)) {
+		if (callType == "random") {
+			giphyAJAX(url, giphyRandomAPI);
+
+		} else if (callType == "translate") {
+			if (string != '') {
+				url += "&s=" + string
+				giphyAJAX(url, giphyTranslateAPI);
+			} else {
+				giphyAJAX(url, giphyRandomAPI);
+			}
+		}
 	}
+}
 
+function giphyAJAX (url, callback) {
+$.ajax({
+	url: url,
+	method: "GET"
+}).done(function(response){
+		callback(response);
+	});
+}
 
-	//GET THE GIFS
-	//GET ALL THE GIFS
-	var host = "api.giphy.com";
-	var path = "/v1/gifs/random";
-	var apikey = "60a662cf5d774be4922ed09719bdb709";
-	var gifSet = [];
-	var repeat;
+function giphyTranslateAPI(response) {
+	putGifOnPage(response.data.images.original.webp)
+}
 
-	function displayGIF(){
-	  reaction = $("#emo-input").val().trim();
-	  	if (reaction.indexOf(" ") === -1){
-	  		console.log("response verified")
-		  	var queryURL = "https://"
-		                  +host
-		                  +path
-		                  +"?q=" + reaction
-		                  +"&api_key=" + apikey
-		  	//loop through ajax requests to get 10 images
-		  	for (i=0; i<10; i++){
+function giphyRandomAPI(response) {
+	putGifOnPage(response.data.image_original_url)
+}
 
-			    $.ajax({
-			    url: queryURL,
-			    method: "GET"
-			    }).done(function(response){
+function displayRandomGif() {
+	reaction = $("#emo-input").val().trim();
+	if (reaction.indexOf(" ") === -1){
+	// console.log("response verified")
 
-			    //display each
-			    var newGif = $("<img>")
-			    newGif.attr("src", response.data.image_original_url);
-			    newGif.attr("class", "gif");
-			    $(".gif-dump").append(newGif);
-				});
-		   	};
-	  	};
-	};
-
-	// LOG TO DATABASE
-	// LOG TO DATABASE
-	// LOG TO DATABASE
-	var config,
-	    dbref,
-	    db;
-
-	// Initialize Firebase
-	 config = {
-	  apiKey: "AIzaSyDscLKYL_bkXbpsMx0W3eZBlORMwco9qOI",
-	  authDomain: "culturecanary-859bc.firebaseapp.com",
-	  databaseURL: "https://culturecanary-859bc.firebaseio.com",
-	  projectId: "culturecanary-859bc",
-	  storageBucket: "culturecanary-859bc.appspot.com",
-	  messagingSenderId: "559681967479"
-	};
-	firebase.initializeApp(config);
-
-	 db = firebase.database();
-	 dbref = db.ref();
-
-	 // console.log(dbref);
-
-	 dbref.on("child_added", function(snap) {
-	   console.log("snapshot: " + ssnap.val());
-	 })
-
-	// function
-
-	function postNewResponse(uid, name, articleURL, reaction, gifURL) {
-	  // A post entry.
-	  var respData = {
-	    user: uid,
-	    name: name,
-	    article: articleURL,
-	    reactionText:reaction,
-	    gifURL: gifURL,
-	    timestamp: firebase.database.ServerValue.TIMESTAMP
-	  };
-
-	  // Get a key for a new Post.
-	  var newKey = dbref.child('responses').push().key;
-
-	  // Write the new post's data simultaneously in the posts list and the user's post list.
-	  var updates = {};
-	  updates['/responses/' + newKey] = respData;
-	  updates['/user-responses/' + uid + '/' + newKey] = respData;
-
-	  return firebase.database().ref().update(updates);
+	//loop through ajax requests to get 10 random images
+		for (i=0; i<10; i++){
+			getFromGiphy("random");
+		}
 	}
+}
 
+function putGifOnPage(url) {
+	var newGif = $("<img>")
+	newGif.attr("src", url);
+	newGif.attr("class", "gif");
+	$(".gif-dump").append(newGif);
+}
 
-	function resetAll() {
-		$("#emo-input").val("")
-		reaction = "";
-		$(".gif-dump").empty();
-		source = pickNewSource();
-		getNews(source);
-	}
+function postNewResponse(uid, name, articleURL, reaction, gifURL) {
+  // A post entry.
+  var respData = {
+    user: uid,
+    name: name,
+    article: articleURL,
+    reactionText:reaction,
+    gifURL: gifURL,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  };
 
-// }); // close ON READY function
+  // Get a key for a new Post.
+  var newKey = firebase.database().ref().child('responses').push().key;
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  var updates = {};
+  updates['/responses/' + newKey] = respData;
+  updates['/user-responses/' + uid + '/' + newKey] = respData;
+
+  return firebase.database().ref().update(updates);
+}
+
+function resetAll() {
+	$("#emo-input").val("")
+	reaction = "";
+	$(".gif-dump").empty();
+	source = pickNewSource();
+	getNews(source);
+}
