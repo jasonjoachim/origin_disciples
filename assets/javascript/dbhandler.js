@@ -20,17 +20,7 @@ function init() {
 }
 
 
- // console.log(dbref);
-
- // dbref.on("child_added", function(snap) {
- //   console.log(snap.val());
- // })
-
-
 // Store a response to the DB. Writes in /responses/ and /user-responses/
-// firebase.auth().currentUser.displayName;
-// firebase.auth().currentUser.uid
-
 function postNewResponse(articleURL, reaction, gifURL) {
   // A post entry.
   var db = firebase.database();
