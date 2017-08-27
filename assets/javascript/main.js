@@ -9,33 +9,36 @@ var source;
 
 
 window.onload = function() {
-	init();
-	initApp();
+	init(); //load up firebase
+	initApp(); //sign in with firebase.auth()
 
-  //TODO get the stuff AFTER we've logged in.
+
+  //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
+	source = pickNewSource();
+	getNews(source);
 };
-
-source = pickNewSource();
-// Gets and displays news
-getNews(source);
 
 
 // ========== Click Handlers ===========
 
+//I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
 	// displayRandomGif();
 	// displayGIF();
 	event.preventDefault();
 });
 
+//Hitting enter in the input box is the only way to use the site right now.
+//Fetches appropriate gifs when the user submits their reponse by hitting enter in the input box.
 $("#emo-input").keypress(function(event) {
 //Enter key
 	if (event.which == 13) {
 		event.preventDefault();
 		var input = $("#emo-input").val();
 		console.log(input);
-		input ? getFromGiphy("translate", input)
-			: getFromGiphy("random", input);
+
+		//If input == translate, then run the translate function, if random, run random.
+		input ? getFromGiphy("translate", input) : getFromGiphy("random", input);
 
 		$("#emo-input").val('');
 		reaction = input;
@@ -43,7 +46,7 @@ $("#emo-input").keypress(function(event) {
 	}
 });
 
-	// CLICK HANDLER THAT ACTUALLY SAVES A CARD TO FIREBASE AND RESETS EVERYTHING:
+	// CLICK HANDLER THAT ACTUALLY SAVES TO FIREBASE AND RESETS EVERYTHING:
 	$(".gif-dump").on("click", ".gif", function(){
 
 		var gifURL = $(this).attr("src");
@@ -53,8 +56,6 @@ $("#emo-input").keypress(function(event) {
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
 	})
-
-
 
 // ======= Function Definitions ========
 
@@ -72,19 +73,18 @@ function initDB() {
 
 function pickNewSource () {
  	randomNumber = (Math.round(Math.random()*3));
-  // console.log(randomNumber);
   return sourceArray[randomNumber];
 }
 
 //GET ALL THE NEWS
 // Returns 10 popular articles
 function getNews(source) {
-// function getNews(source, sortBy) { //
+// function getNews(source, sortBy) { //can also specify an option for sorting
 console.log(source);
 
   var queryUrl = "https://newsapi.org/v1/articles?"
         +'&source=' + source
-     // + '&sortBy=': sortBy
+     // + '&sortBy=': sortBy  //We can also pass in an option for sorting
         + '&apiKey=a4e123dfc66f4cfcb2a4bb4e94248c29';
 
   //send off our resquest
@@ -92,25 +92,19 @@ console.log(source);
     url: queryUrl,
     method: "GET"
   }).done(function(response){
-  	// console.log("news url?")
   	console.log(response);
 
     var randomArticleNumber = Math.round(Math.random() * (response.articles.length - 1));
     console.log(randomArticleNumber);
 
 		var newsItem = response.articles[randomArticleNumber];
-    // head = (newsItem.title);
-    // subhead = (newsItem.description);
-		// var newsURL = newsItem.url;
-		// var imageURL = newsItem.urlToImage;
 
-		$("#news-container").append(newsItemHTML(newsItem));
+		while (!newsItem.description && randomArticleNumber<9) {
+			var newsItem = response.articles[randomArticleNumber++];
+		}
 
-		// $("#head").html(head);
-    // $("#subhead").html(subhead);
-
-    articleData = newsItem;
-
+			$("#news-container").append(newsItemHTML(newsItem));
+			articleData = newsItem; //Save the articleData for later use by the write new post function
   });
 };
 
@@ -182,11 +176,11 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
 	var image;
 	if (gifURL) {
-		image = $("<img>").attr({class:"gif", src:gifURl});
-		if (responseTime && reaction) {
-			var responseTime = $("<div>").attr("class","response-time").text(timestamp);
-			var reaction = $("<div>").attr("class","reaction").text(reaction);
-			newNewsItem.append(responseTime, reaction);
+		image = $("<img>").attr({class:"gif", src:gifURL});
+		if (timestamp && reaction) {
+			var reactionTime = $("<div>").attr("class","response-time").text(moment(timestamp).format("ddd, hA"));
+			var reaction = $("<div>").attr("class","reaction").text('"'+reaction+'"');
+			newNewsItem.append(reactionTime, reaction);
 		}
 	} else {
 		image = $("<img>").attr({class:"gif", src:newsItem.urlToImage});
@@ -195,9 +189,17 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	return newNewsItem;
 }
 
+//Takes a user id and spits out the result to a div with id "day1".
 function displayAllFromUser(uid){
-	firebase.database().ref('/user-responses/' + userId).once('value').then(function(snapshot) {
-	  console.log(snapshot.val());
+	//Line below also workd, we might need it later.
+	// firebase.database().ref('/user-responses/' + uid).once('value').then(function(snapshot) {
+
+	firebase.database().ref('/user-responses/' + uid).on('child_added', function(snap) {
+		// console.log(snap.val());
+		$("#day1").append( newsItemHTML( snap.val().article,
+																		 snap.val().reactionText,
+																		 snap.val().gifURL,
+																		 snap.val().timestamp));
 	});
 }
 

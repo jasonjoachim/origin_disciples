@@ -142,11 +142,16 @@ function initApp() {
       document.getElementById('user-area').style.display = 'block'; //Show the hidden areas.
       document.getElementById('sign-in-area').style.display = 'none'; //Hide the sign in area.
 
+      //TODO call other functions here....
+      console.log("Successfully Signed in");
+      // source = pickNewSource();
+      // getNews(source);
+
       // [START_EXCLUDE]
       // document.getElementById('sign-in-status').textContent = 'Signed in';
       // document.getElementById('sign-in').textContent = 'Sign out';
       // document.getElementById('account-details').textContent = JSON.stringify(user, null, '  ');
-console.log(JSON.stringify(user, null, '  '));
+// console.log(JSON.stringify(user, null, '  '));
       // [END_EXCLUDE]
     } else {
       // User is signed out.
