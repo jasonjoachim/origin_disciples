@@ -174,18 +174,22 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	var newNewsItem = $("<div>").attr({class:"news-article", id: "fetched-article"});
 	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
+	var time;
+
 	var image;
 	if (gifURL) {
 		image = $("<img>").attr({class:"gif", src:gifURL});
 		if (timestamp && reaction) {
-			var reactionTime = $("<div>").attr("class","response-time").text(moment(timestamp).format("ddd, hA"));
+			var reactionTime = $("<div>").attr("class","response-time").text(moment(timestamp).format("ddd, h:mm A"));
 			var reaction = $("<div>").attr("class","reaction").text('"'+reaction+'"');
 			newNewsItem.append(reactionTime, reaction);
 		}
 	} else {
 		image = $("<img>").attr({class:"gif", src:newsItem.urlToImage});
+		time = $("<div>").attr("class","response-time").text(moment(newsItem.publishedAt).format("ddd, h:mm A"));
+
 	}
-	newNewsItem.append(headline, blurb, image);
+	newNewsItem.append(headline, blurb, image, time);
 	return newNewsItem;
 }
 

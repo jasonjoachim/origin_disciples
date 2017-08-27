@@ -109,7 +109,7 @@ header, #user-area{
                        "blurb blurb gif"
                        "time react react";
   grid-gap: 10px;
-  /*grid-template-columns: 1fr 1fr 200px;*/
+  grid-template-columns: repeat(3, 1fr);
   /*grid-template-rows: auto 200px;*/
   justify-self: center;
   /*max-width: 400px;*/
