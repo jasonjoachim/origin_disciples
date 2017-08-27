@@ -142,6 +142,7 @@ function initApp() {
       document.getElementById('user-area').style.display = 'block'; //Show the hidden areas.
       document.getElementById('sign-in-area').style.display = 'none'; //Hide the sign in area.
 
+      $(".loader").fadeOut("slow");
       //TODO call other functions here....
       console.log("Successfully Signed in");
       // source = pickNewSource();
@@ -163,10 +164,12 @@ function initApp() {
       // document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
       document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
+      $(".loader").fadeOut("slow");
       // document.getElementById('account-details').textContent = 'null';
       // document.getElementById('oauthtoken').textContent = 'null';
       // [END_EXCLUDE]
     }
+
     // [START_EXCLUDE]
     document.getElementById('sign-in').disabled = false; //disable the sign in button
     // [END_EXCLUDE]

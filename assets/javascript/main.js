@@ -12,7 +12,6 @@ window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
-
   //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
 	source = pickNewSource();
 	getNews(source);
@@ -206,6 +205,8 @@ function displayAllFromUser(uid){
 																		 snap.val().timestamp));
 	});
 }
+
+
 
 // Accepts articleData as an obj, reaction string, and gifURL string. Pushes to firebase.
 function postNewResponse(articleData, reaction, gifURL) {
