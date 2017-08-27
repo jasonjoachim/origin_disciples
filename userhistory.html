@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Response When</title>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap/Fontawesome -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+    <!-- Firebase-Complete (not needed unless you want to do something fancy.) -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script> -->
+
+    <!-- Firebase app, auth, DB -->
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+
+    <!-- Moment (unused) -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
+
+    <!-- Our Libraries -->
+    <script async type="text/javascript" src="assets/javascript/dbhandler.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Righteous" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+
+      .timeline{
+        display: grid;
+        /*grid-template-columns: 1fr 1fr;*/
+        grid-template-areas: "resp resp";
+        grid-gap: 20px;
+        /*justify-items: center;*/
+      }
+      .news-article {
+        display: grid;
+        grid-template-areas: "head head head"
+                             "blurb blurb gif"
+                             "time react react";
+        grid-gap: 10px;
+        /*grid-template-columns: 1fr 1fr 200px;*/
+        /*grid-template-rows: auto 200px;*/
+        justify-self: center;
+        max-width: 400px;
+        min-width: 240px;
+        padding: 20px;
+        background-color: #454545;
+        border-radius: 5%;
+      }
+      .news-article .headline {
+        grid-area: head;
+        background-color: #454545;
+        font-family: 'Righteous', cursive;
+
+        color: #ff5052;
+        text-shadow: 4px 4px 8px #008070;
+      }
+      .news-article .response-time {
+        grid-area: "time";
+        color: white;
+      }
+      .news-article .blurb {
+        grid-area:blurb;
+        color: white;
+        font-size: 16px;
+      }
+      .news-article .gif {
+        grid-area:gif;
+      }
+      .news-article .reaction {
+        grid-area:react;
+        justify-self: center;
+        color: white;
+        font-family: fantasy;
+        font-style: italic;
+        font-size: 1.25em;
+        /*text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 250px;*/
+      }
+
+      img {
+        max-height: 200px;
+        max-width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+
+
+  <!--navigation  -->
+  <!-- <header>
+    <div class="dropdown">
+      <button id="profile-dropdown" class="dropbtn">Dropdown</button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div>
+  </header> -->
+
+    <!-- this will be for the trending news item -->
+    <div class="container">
+      <div class="jumbotron">
+        <h1>My Response When</h1>
+          <p>Gif Reacts to News</p>
+    </div>
+  </div>
+<!--
+    <div class="panel panel-body" id="sign-in-area">
+      <p>Sign in with your GitHub account below.</p>
+
+      <!-- Button that handles sign-in/sign-out -->
+      <!-- <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in">Sign in with GitHub</button>
+    </div> -->
+<div class="container" id="sign-in-area">
+
+
+    <div class="panel panel-default">
+      <div class="panel-body">Your history</div>
+    </div>
+
+<div class="timeline">
+  <div class="news-article" id="some-timestamp">
+    <div class="response-time">
+      Aug 23, 5:15am
+    </div>
+    <div class="headline">
+      <h4>Hurricane Harvey lands first blow to Texas, but more is expected to come</h4>
+    </div>
+    <div class="blurb">
+      Reports of damage were coming in as massive storm threatens to bring “catastrophic” flooding to a quarter of the Lone Star State.
+    </div>
+    <img src="https://media1.giphy.com/media/14d8cRr25KPxbG/giphy-downsized.gif" class="gif">
+
+    </img>
+    <div class="reaction">
+      "OMG when will it end??" This is a really long response
+    </div>
+
+  </div>
+
+  <div class="response" id="timestamp">
+    <div class="response-time">
+      Aug 23, 5:15am
+    </div>
+    <div class="headline">
+      <h4>Hurricane Harvey lands first blow to Texas, but more is expected to come</h4>
+    </div>
+    <div class="blurb">
+      Reports of damage were coming in as massive storm threatens to bring “catastrophic” flooding to a quarter of the Lone Star State.
+    </div>
+    <img src="https://media1.giphy.com/media/14d8cRr25KPxbG/giphy-downsized.gif" class="gif">
+
+    </img>
+    <div class="reaction">
+      "OMG when will it end??" This is a really long response
+    </div>
+
+  </div>
+
+  <div class="response" id="timestamp">
+    <div class="response-time">
+      Aug 23, 5:15am
+    </div>
+    <div class="headline">
+      <h4>Hurricane Harvey lands first blow to Texas, but more is expected to come</h4>
+    </div>
+    <div class="blurb">
+      Reports of damage were coming in as massive storm threatens to bring “catastrophic” flooding to a quarter of the Lone Star State.
+    </div>
+    <img src="https://media1.giphy.com/media/14d8cRr25KPxbG/giphy-downsized.gif" class="gif">
+
+    </img>
+    <div class="reaction">
+      "OMG when will it end??" This is a really long response
+    </div>
+
+  </div>
+
+
+  </div>
+</div>
+
+    </div>
+  </div>
+
+      <!-- <div class="gif-dump"></div> -->
+      <!-- <script src="assets/javascript/news.js"></script> -->
+      <script type="text/javascript" src="assets/javascript/main.js"></script>
+
+
+  </body>
+</html>
