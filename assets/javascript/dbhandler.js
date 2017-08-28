@@ -55,7 +55,7 @@ function toggleSignIn() {
     var provider = new firebase.auth.GithubAuthProvider();
     // [END createprovider]
     // [START addscopes]
-    provider.addScope('repo');
+    provider.addScope('read:user');
     // [END addscopes]
     // [START signin]
     firebase.auth().signInWithRedirect(provider);

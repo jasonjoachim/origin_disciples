@@ -106,8 +106,8 @@ header, #user-area{
 /*Used for history pages*/
 .timeline{
   display: grid;
-  /*grid-template-columns: 1fr 1fr;*/
-  grid-template-areas: "resp resp";
+  grid-template-columns: 1fr 1fr;
+  /*grid-template-areas: "resp resp";*/
   grid-gap: 20px;
   /*justify-items: center;*/
 }
@@ -147,6 +147,8 @@ header, #user-area{
 }
 .news-article .gif {
   grid-area:gif;
+  max-height: 200px;
+  max-width: 200px;
 }
 .news-article .reaction {
   grid-area:react;
@@ -161,7 +163,17 @@ header, #user-area{
   max-width: 250px;*/
 }
 
-.news-article img {
-  max-height: 200px;
-  max-width: 200px;
+.resp {
+  grid-template-areas: "head head head"
+                       "gif gif gif"
+                       "time react react";
+}
+
+.resp .blurb {
+  display: none;
+}
+
+.resp .gif {
+  max-width: 100%;
+  max-height: none;
 }
