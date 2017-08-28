@@ -9,6 +9,9 @@ var source;
 
 
 window.onload = function() {
+	$("#user-area").hide();
+	$("#sign-out").hide();
+	$("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -19,6 +22,12 @@ window.onload = function() {
 
 
 // ========== Click Handlers ===========
+
+$("#sign-out").on("click", function (event){
+	toggleSignIn();
+	$("#profile-dropdown").html("Welcome - sign in below");
+	$("#user-area").hide();
+});
 
 //I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
@@ -208,6 +217,7 @@ function displayAllFromUser(uid){
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
 	});
+
 }
 
 //This is the command to get the last ten responses.

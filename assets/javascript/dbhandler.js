@@ -127,10 +127,18 @@ function initApp() {
       var providerData = user.providerData;
 
       //TODO move this out to main.js --
-      document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
+      
+      if (displayName == null) {
+        document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
+      } else {
+        document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
+      }
+
       document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
-      document.getElementById('user-area').style.display = 'block'; //Show the hidden areas.
-      document.getElementById('sign-in-area').style.display = 'none'; //Hide the sign in area.
+      $("#user-area").show(); //Show the hidden areas.
+      $("#sign-in-area").hide(); //Hide the sign in area.
+      $("#sign-out").show();
+      $("#your-profile").show();
 
       $(".loader").fadeOut("slow");
       //TODO call other functions here....
@@ -145,6 +153,8 @@ function initApp() {
 // console.log(JSON.stringify(user, null, '  '));
       // [END_EXCLUDE]
     } else {
+
+
       // User is signed out.
       // [START_EXCLUDE]
       // document.getElementById('sign-in-status').textContent = 'Signed out';
