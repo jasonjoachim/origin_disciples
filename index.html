@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="en">
+<head>
+   <meta charset="utf-8">
     <title>My Response When</title>
 
     <!-- jQuery -->
@@ -29,89 +29,78 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway|Righteous" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-
-  </head>
-  <body>
-    <!-- Blank screen until loaded -->
-    <div class="loader"></div>
+</head>
+<body>
+  <!-- <div class="loader"></div> -->
 
   <!--navigation  -->
   <header>
-    <div class="dropdown">
-      <button id="profile-dropdown" class="dropbtn">Dropdown</button>
-      <div class="dropdown-content">
-        <a href="#">Top Responses</a>
-        <a href="#">Your Profile</a>
-        <a href="#">Sign Out</a>
-      </div>
+
+    <div class="buttonToolbar">
+      <button id="sign-out-btn">Sign Out</button>
+      <button id="feed-btn">Feed</button>
+      <button id="react-btn">React</button>
+      <button id="diary-btn">Diary</button>
     </div>
-  </header>
+
+  </header><br>
 
     <!-- this will be for the trending news item -->
     <div class="container">
-      <div class="jumbotron">
-        <h1>My Response When</h1>
-          <p>Gif Reacts to News</p>
-    </div>
-
-    <div class="panel panel-body" id="sign-in-area">
-      <p>Sign in with your GitHub account below.</p>
-
-      <!-- Button that handles sign-in/sign-out -->
-      <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in">Sign in with GitHub</button>
-    </div>
-
-      <div class="panel panel-default" id="user-area">
-      <div class="panel-body">Trending Topic</div>
-        <div class="news" id="news-container">
-
+        <div class="jumbotron">
+            <h1>My Response When</h1>
+            <p>Gif Reacts to News</p>
         </div>
-      </div>
+    </div>
+    <div class="panel panel-body" id="sign-in-area">
+        <p>Sign in with your GitHub account below.</p>
 
-      <div class="panel panel-default" id="response-area">
-        <div class="panel-body">How does this make you feel?</div>
-          <!-- <form class="form-inline"> -->
-            <div class="form-group" id="emoField">
+        <!-- Button that handles sign-in/sign-out -->
+        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in">Sign in with GitHub</button>
+    </div>
+    <div class="container" id="react">
+        <div class="panel panel-default" id="user-area">
+            <div class="panel-body">Trending Topic</div>
+            <div class="news" id="news-container"></div>
+        </div>
 
-              <form class="" id="emo-form" method="post">
-                <label for="emo-input"></label>
+        <div class="panel panel-default" id="response-area">
+            <div class="panel-body">How does this make you feel?</div>
+            <!-- <form class="form-inline"> -->
+                <div class="form-group" id="emoField">
 
-                <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
+                <form class="" id="emo-form" method="post">
+                    <label for="emo-input"></label>
 
-                <button type="button" id="i-feel">I feel!</button>
-              </form>
+                    <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
 
-            </div>
-          </div>
-          <!-- </form> -->
-      </div>
+                    <button type="button" id="i-feel">I feel!</button>
+                </form>
+                </div> <!-- id="emoField" -->
+        </div> <!-- </form> -->
+        <div class="panel panel-default" id="gif-area">
+            <div class="panel-body">Click a gif to save this feeling</div>
 
-      <div class="panel panel-default" id="gif-area">
-        <div class="panel-body">Click a gif to save this feeling</div>
         <div class="gif-dump"></div>
-      </div>
+    </div>
+  </div>
 
-      <div class="timeline"></div>
-      <!-- <script src="assets/javascript/news.js"></script> -->
+
+    <div class="container hidden" id="diary">
+        <div class="panel panel-default">
+            <div class="panel-body">Your history</div>
+        </div>
+            <div class="timeline"></div>
+    </div>
+
+    <div class="container hidden" id="feed">
+
+    </div>
+
       <script type="text/javascript" src="assets/javascript/main.js"></script>
 
-      <script>
 
 
-    // var head;
-    // var subhead;
-    //
-    // var randomNumber = (Math.round(Math.random()*3));
-    // console.log(randomNumber);
-    //
-    // var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
-    //
-    // var source = sourceArray[randomNumber];
-    //
-    // // Gets and displays news
-    // getNews(source);
 
-      </script>
-
-  </body>
+</body>
 </html>
