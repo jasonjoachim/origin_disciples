@@ -66,6 +66,9 @@ body{
 #emoField{
     padding: 20px;
 }
+.form-group{
+  background-color: #454545;
+}
 button {
   display: inline-block;
   padding: 15px 25px;
@@ -141,7 +144,7 @@ header, #user-area{
 .news-article .reaction {
   grid-area:react;
   justify-self: center;
-  color: white;
+  color: #008070;
   font-family: fantasy;
   font-style: italic;
   font-size: 1.25em;
