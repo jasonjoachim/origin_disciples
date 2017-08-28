@@ -67,14 +67,7 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
-/*Used for history pages*/
-.timeline{
-  display: grid;
-  /*grid-template-columns: 1fr 1fr;*/
-  grid-template-areas: "resp resp";
-  grid-gap: 20px;
-  /*justify-items: center;*/
-}
+
 
 /*Main news article display*/
 .news-article {
@@ -111,6 +104,8 @@ header, #user-area{
 }
 .news-article .gif {
   grid-area:gif;
+  max-height: 200px;
+  max-width: 200px;
 }
 .news-article .reaction {
   grid-area:react;
@@ -125,7 +120,36 @@ header, #user-area{
   max-width: 250px;*/
 }
 
-.news-article img {
-  max-height: 200px;
-  max-width: 200px;
+/*START history section*/
+.timeline{
+  /*display: grid;*/
+  display: none; /*Default hidden*/
+  grid-template-columns: 1fr 1fr;
+  /*grid-template-areas: "resp resp";*/
+  grid-gap: 20px;
+  /*justify-items: center;*/
+}
+
+.resp {
+  grid-template-areas: "head head head"
+                       "gif gif gif"
+                       "time react react";
+}
+
+.resp .blurb {
+  display: none;
+}
+
+.resp .gif {
+  max-width: 100%;
+  max-height: none;
+}
+
+/*END history section*/
+
+
+/*START show/hide Utility*/
+
+.hidden {
+  display: none;
 }

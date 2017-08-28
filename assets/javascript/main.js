@@ -9,6 +9,9 @@ var source;
 
 
 window.onload = function() {
+	$("#user-area").hide();
+	$("#sign-out").hide();
+	$("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -19,6 +22,12 @@ window.onload = function() {
 
 
 // ========== Click Handlers ===========
+
+$("#sign-out").on("click", function (event){
+	toggleSignIn();
+	$("#profile-dropdown").html("Welcome - sign in below");
+	$("#user-area").hide();
+});
 
 //I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
@@ -54,9 +63,24 @@ $("#emo-input").keypress(function(event) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-	})
+	});
 
+	$("#diary").on("click", function(){
+
+	});
+
+
+// ======= END click handlers ==========
 // ======= Function Definitions ========
+
+function showOnly(areaID) {
+	$("#sign-in-area").hide();
+	$("#user-area").hide();
+	$("#response-area").hide();
+	$("#gif-area").hide();
+	$("#timeline").hide();
+	$("#"+areaID).show();
+}
 
 function initDB() {
   config = {
@@ -170,20 +194,24 @@ function putGifOnPage(url) {
 //If more args are passed in, it will generate additional HTML to display the user response,
 //GIF, and timestamp.
 function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
-	var newNewsItem = $("<div>").attr({class:"news-article", id: "fetched-article"});
+	var newNewsItem = $("<div>");
 	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
-	var time;
+	var time, image;
 
-	var image;
+
+	//If the post is a response
 	if (gifURL) {
 		image = $("<img>").attr({class:"gif", src:gifURL});
 		if (timestamp && reaction) {
+			newNewsItem.attr({class:"news-article resp", id: "fetched-article"}); //TODO change the ID to be meaningful or delete it.
 			var reactionTime = $("<div>").attr("class","response-time").text(moment(timestamp).format("ddd, h:mm A"));
 			var reaction = $("<div>").attr("class","reaction").text('"'+reaction+'"');
 			newNewsItem.append(reactionTime, reaction);
 		}
+	//If the post is a plain news article and not a response.
 	} else {
+		newNewsItem.attr({class:"news-article", id: "fetched-article"});
 		image = $("<img>").attr({class:"gif", src:newsItem.urlToImage});
 		time = $("<div>").attr("class","response-time").text(moment(newsItem.publishedAt).format("ddd, h:mm A"));
 
@@ -199,15 +227,23 @@ function displayAllFromUser(uid){
 
 	firebase.database().ref('/user-responses/' + uid).on('child_added', function(snap) {
 		// console.log(snap.val());
-		$("#day1").append( newsItemHTML( snap.val().article,
+		$(".timeline").append( newsItemHTML( snap.val().article,
 																		 snap.val().reactionText,
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
 	});
+
 }
 
+//This is the command to get the last ten responses.
+// firebase.database().ref('/responses/' ).limitToLast(10).once('value').then(function(snap) {
+// 	snap.forEach(function(childSnapshot) {
+// 		console.log(childSnapshot.val());
+// 	});
+// });
 
 
+//TODO This can write to the DB without a displayname attached.
 // Accepts articleData as an obj, reaction string, and gifURL string. Pushes to firebase.
 function postNewResponse(articleData, reaction, gifURL) {
 
