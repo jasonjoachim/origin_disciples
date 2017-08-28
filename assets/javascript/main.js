@@ -20,6 +20,10 @@ window.onload = function() {
 
 // ========== Click Handlers ===========
 
+$("#sign-out").on("click", function (event){
+	toggleSignIn();
+});
+
 //I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
 	// displayRandomGif();
