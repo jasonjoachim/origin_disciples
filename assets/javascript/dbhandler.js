@@ -20,17 +20,7 @@ function init() {
 }
 
 
- // console.log(dbref);
-
- // dbref.on("child_added", function(snap) {
- //   console.log(snap.val());
- // })
-
-
 // Store a response to the DB. Writes in /responses/ and /user-responses/
-// firebase.auth().currentUser.displayName;
-// firebase.auth().currentUser.uid
-
 function postNewResponse(articleURL, reaction, gifURL) {
   // A post entry.
   var db = firebase.database();
@@ -142,11 +132,17 @@ function initApp() {
       document.getElementById('user-area').style.display = 'block'; //Show the hidden areas.
       document.getElementById('sign-in-area').style.display = 'none'; //Hide the sign in area.
 
+      $(".loader").fadeOut("slow");
+      //TODO call other functions here....
+      console.log("Successfully Signed in");
+      // source = pickNewSource();
+      // getNews(source);
+
       // [START_EXCLUDE]
       // document.getElementById('sign-in-status').textContent = 'Signed in';
       // document.getElementById('sign-in').textContent = 'Sign out';
       // document.getElementById('account-details').textContent = JSON.stringify(user, null, '  ');
-console.log(JSON.stringify(user, null, '  '));
+// console.log(JSON.stringify(user, null, '  '));
       // [END_EXCLUDE]
     } else {
       // User is signed out.
@@ -158,10 +154,12 @@ console.log(JSON.stringify(user, null, '  '));
       // document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
       document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
+      $(".loader").fadeOut("slow");
       // document.getElementById('account-details').textContent = 'null';
       // document.getElementById('oauthtoken').textContent = 'null';
       // [END_EXCLUDE]
     }
+
     // [START_EXCLUDE]
     document.getElementById('sign-in').disabled = false; //disable the sign in button
     // [END_EXCLUDE]
