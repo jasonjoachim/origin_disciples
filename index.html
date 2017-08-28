@@ -6,92 +6,112 @@
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap -->
+    <!-- Bootstrap/Fontawesome -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Firebase  -->
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+    <!-- Firebase-Complete (not needed unless you want to do something fancy.) -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script> -->
+
+    <!-- Firebase app, auth, DB -->
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+    <script async src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+
     <!-- Moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
     <!-- Our Libraries -->
-    <script type="text/javascript" src="assets/javascript/dbhandler.js"></script>
+    <script async type="text/javascript" src="assets/javascript/dbhandler.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway|Righteous" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="reset.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 
   </head>
   <body>
+    <!-- Blank screen until loaded -->
+    <div class="loader"></div>
+
   <!--navigation  -->
+  <header>
     <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
+      <button id="profile-dropdown" class="dropbtn">Dropdown</button>
       <div class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+        <a href="#">Top Responses</a>
+        <a href="#">Your Profile</a>
+        <a id="sign-out" href="#">Sign Out</a>
       </div>
     </div>
-
+  </header>
 
     <!-- this will be for the trending news item -->
     <div class="container">
       <div class="jumbotron">
         <h1>My Response When</h1>
-          <p>Giph Reacts to News</p>
+          <p>Gif Reacts to News</p>
     </div>
-      <div class="panel panel-default">
+
+    <div class="panel panel-body" id="sign-in-area">
+      <p>Sign in with your GitHub account below.</p>
+
+      <!-- Button that handles sign-in/sign-out -->
+      <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in">Sign in with GitHub</button>
+    </div>
+
+      <div class="panel panel-default" id="user-area">
       <div class="panel-body">Trending Topic</div>
         <div class="news" id="news-container">
 
-        <span class="news" id="head"></span>
-
-        <br>
-        <br>
-        <br>
-
-        <span class="news" id="subhead"></span>
-
         </div>
+      </div>
 
       <div class="panel panel-default">
         <div class="panel-body">How does this make you feel?</div>
-          <form class="form-inline">
+          <!-- <form class="form-inline"> -->
             <div class="form-group" id="emoField">
-              <label for="emo-input">Emotional Response</label>
-              <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
-              <button type="button" id="i-feel">I feel!</button>
+
+              <form class="" id="emo-form" method="post">
+                <label for="emo-input"></label>
+
+                <input type="text" id="emo-input" class="form-control mx-sm-3" aria-describedby="emo-input">
+
+                <button type="button" id="i-feel">I feel!</button>
+              </form>
+
             </div>
-          </form>
+            </div>
+          <!-- </form> -->
       </div>
+
       <div class="panel panel-default">
-        <div class="panel-body" id"gif-dump">Pick a Giph!</div>
+        <div class="panel-body" id = "gif-dump">Click a gif to save this feeling</div>
       </div>
+
+
       <div class="gif-dump"></div>
+      <!-- <script src="assets/javascript/news.js"></script> -->
+      <script type="text/javascript" src="assets/javascript/main.js"></script>
 
+      <script>
 
-
-    <script src="assets/javascript/news.js"></script>
-
-    <script type="text/javascript" src="assets/main.js"></script>
-
-    <script>
 
     // var head;
     // var subhead;
-
+    //
     // var randomNumber = (Math.round(Math.random()*3));
     // console.log(randomNumber);
-
+    //
     // var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
-
+    //
     // var source = sourceArray[randomNumber];
-
+    //
     // // Gets and displays news
     // getNews(source);
 
-    </script>
+      </script>
 
   </body>
 </html>
