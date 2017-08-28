@@ -21,7 +21,12 @@
     // Gets and displays news
     getNews(source);
 
-	
+
+	$("#emo-input").keyup(function(event){
+	    if(event.keyCode == 13){
+	       $("#i-feel").click();
+	    }  
+	});	
 
 	$("#i-feel").on("click", function (){		
 		displayGIF();

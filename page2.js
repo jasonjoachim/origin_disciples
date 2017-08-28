@@ -11,12 +11,17 @@
 
 var database = firebase.database();
 
-database.ref().limitToFirst(10).on("child_added", function(snapshot){
+database.ref("/responses").limitToFirst(10).on("child_added", function(snapshot){
 	
-	var gif = snapshot.gif;
-	var link = snapshot.link;
+  var newLink;
+	var gif = snapshot.val().gifURL;
+	var articleLink = snapshot.val().article;
 
-	var newLink = $("<a href='" + link + "'><img src='" + gif + "'></a>");
+
+
+	var newLink = $("<img>");
+  newLink.attr("href", articleLink)
+  $("<a href='" + articleLink + "'><img src='" + gif + "'></a>");
 	
-	$(".gif-dump").append(newLink);
+	$(".gif-container").append(newLink);
 });
