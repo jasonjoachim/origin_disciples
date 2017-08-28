@@ -13,7 +13,7 @@ var database = firebase.database();
 
 $("#feed").on("click", function(){
   $("#news-container").css("display", "none");
-  $("#news-container").css("display", "none");
+  $("#emoField").css("display", "none");
 
 });
 
