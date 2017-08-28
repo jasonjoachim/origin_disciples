@@ -38,10 +38,10 @@
   <!--navigation  -->
   <header>
     <div class="dropdown">
-      <button id="profile-dropdown" class="dropbtn">Dropdown</button>
+      <button id="profile-dropdown" class="dropbtn">Welcome - sign in below</button>
       <div class="dropdown-content">
-        <a href="#">Top Responses</a>
-        <a href="#">Your Profile</a>
+        <a id="top-responses" href="#">Top Responses</a>
+        <a id="your-profile" href="#">Your Profile</a>
         <a id="sign-out" href="#">Sign Out</a>
       </div>
     </div>
@@ -66,7 +66,7 @@
         <div class="news" id="news-container">
 
         </div>
-      </div>
+      
 
       <div id= class="panel panel-default">
         <div class="panel-body">How does this make you feel?</div>
@@ -81,10 +81,11 @@
                 <button type="button" id="i-feel">I feel!</button>
               </form>
 
-            </div>
-            </div>
-          <!-- </form> -->
-      </div>
+            </div> <!-- id="emoField" -->
+
+
+          
+      </div> <!-- </form> -->
 
       <div class="panel panel-default">
         <div class="panel-body" id = "gif-dump">Click a gif to save this feeling</div>
@@ -92,6 +93,11 @@
 
 
       <div class="gif-dump"></div>
+
+    </div> <!-- id="user-area" -->
+
+  </div> <!-- id="container" -->
+
       <!-- <script src="assets/javascript/news.js"></script> -->
       <script type="text/javascript" src="assets/javascript/main.js"></script>
 

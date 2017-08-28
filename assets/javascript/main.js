@@ -9,6 +9,9 @@ var source;
 
 
 window.onload = function() {
+	$("#user-area").hide();
+	$("#sign-out").hide();
+	$("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -22,6 +25,8 @@ window.onload = function() {
 
 $("#sign-out").on("click", function (event){
 	toggleSignIn();
+	$("#profile-dropdown").html("Welcome - sign in below");
+	$("#user-area").hide();
 });
 
 //I feel button doesn't do anything right now.
