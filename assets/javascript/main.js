@@ -54,9 +54,24 @@ $("#emo-input").keypress(function(event) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-	})
+	});
 
+	$("#diary").on("click", function(){
+
+	});
+
+
+// ======= END click handlers ==========
 // ======= Function Definitions ========
+
+function showOnly(areaID) {
+	$("#sign-in-area").hide();
+	$("#user-area").hide();
+	$("#response-area").hide();
+	$("#gif-area").hide();
+	$("#timeline").hide();
+	$("#"+areaID).show();
+}
 
 function initDB() {
   config = {

@@ -103,14 +103,7 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
-/*Used for history pages*/
-.timeline{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /*grid-template-areas: "resp resp";*/
-  grid-gap: 20px;
-  /*justify-items: center;*/
-}
+
 
 /*Main news article display*/
 .news-article {
@@ -163,6 +156,16 @@ header, #user-area{
   max-width: 250px;*/
 }
 
+/*START history section*/
+.timeline{
+  /*display: grid;*/
+  display: none; /*Default hidden*/
+  grid-template-columns: 1fr 1fr;
+  /*grid-template-areas: "resp resp";*/
+  grid-gap: 20px;
+  /*justify-items: center;*/
+}
+
 .resp {
   grid-template-areas: "head head head"
                        "gif gif gif"
@@ -176,4 +179,13 @@ header, #user-area{
 .resp .gif {
   max-width: 100%;
   max-height: none;
+}
+
+/*END history section*/
+
+
+/*START show/hide Utility*/
+
+.hidden {
+  display: none;
 }
