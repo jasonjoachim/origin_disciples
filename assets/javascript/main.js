@@ -82,6 +82,23 @@ function showOnly(areaID) {
 	$("#"+areaID).show();
 }
 
+
+$("#sign-btn").on("click", function () {
+  toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
+});
+
+$("#feed-btn").on("click", function () {
+  showOnly("#feed");
+});
+
+$("#react-btn").on("click", function () {
+  showOnly("#react");
+});
+
+$("#diary-btn").on("click", function () {
+  showOnly("#diary");
+});
+
 function initDB() {
   config = {
    apiKey: "AIzaSyDscLKYL_bkXbpsMx0W3eZBlORMwco9qOI",
