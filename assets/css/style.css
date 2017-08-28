@@ -122,8 +122,8 @@ header, #user-area{
 
 /*START history section*/
 .timeline{
-  /*display: grid;*/
-  display: none; /*Default hidden*/
+  display: grid;
+  /*display: none; /*Default hidden*/*/
   grid-template-columns: 1fr 1fr;
   /*grid-template-areas: "resp resp";*/
   grid-gap: 20px;

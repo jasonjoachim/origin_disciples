@@ -127,7 +127,7 @@ function initApp() {
       var providerData = user.providerData;
 
       //TODO move this out to main.js --
-      
+
       if (displayName == null) {
         document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
       } else {
@@ -135,10 +135,7 @@ function initApp() {
       }
 
       document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
-      $("#user-area").show(); //Show the hidden areas.
-      $("#sign-in-area").hide(); //Hide the sign in area.
-      $("#sign-out").show();
-      $("#your-profile").show();
+
 
       $(".loader").fadeOut("slow");
       //TODO call other functions here....
@@ -171,6 +168,7 @@ function initApp() {
     }
 
     // [START_EXCLUDE]
+    $(".loader").fadeOut("slow");
     document.getElementById('sign-in').disabled = false; //disable the sign in button
     // [END_EXCLUDE]
   });
