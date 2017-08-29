@@ -76,10 +76,10 @@ function getResponseGifs(input) {
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
+	});
 
-		// event.preventDefault;
-		//TODO I commented this out, but we may still want to use togglesignin to do this.
-	  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
+	$("#sign-in-btn").on("click", function (event) {
+	  toggleSignIn();
 	});
 
 	$(".buttonToolbar").on("click", function(event) {
@@ -91,31 +91,20 @@ function getResponseGifs(input) {
 		}
 	});
 
-	// $("#sign-in-btn").on("click", function () {
-	// 	toggleSignIn();
-	// 	// event.preventDefault;
-	//   // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE the toggle sign in function.
-	// });
-	//
-	// $("#feed-btn").on("click", function () {
-	//   showOnly("#feed");
-	// });
-	//
-	// $("#react-btn").on("click", function () {
-	//   showOnly("#react");
-	// });
-	//
-	// $("#diary-btn").on("click", function () {
-	//   showOnly("#diary");
-	// 	displayAllFromUser(firebase.auth().currentUser.uid);
-	// });
 
 
 // ======= END click handlers ==========
 // ======= Function Definitions ========
 
-
+//Show only the passed in section
 function showOnly(someDiv) {
+	hideAllSections();
+	$(someDiv).toggleClass("hidden");
+}
+
+//hide all sections
+function hideAllSections() {
+	
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}
@@ -127,9 +116,6 @@ function showOnly(someDiv) {
 	if (!$("#feed").hasClass("hidden")) {
 		$("#feed").addClass("hidden");
 	}
-
-	$(someDiv).toggleClass("hidden");
-
 }
 
 

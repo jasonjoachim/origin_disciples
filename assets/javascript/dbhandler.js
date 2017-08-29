@@ -122,6 +122,7 @@ function initApp() {
     console.log("AUTH STATE CHANGE");
     if (user) {
       console.log("SIGNED IN");
+      // $(".buttonToolbar").toggleClass("hidden");
       // User is signed in.
       var displayName = user.displayName;
       var email = user.email;
@@ -133,10 +134,10 @@ function initApp() {
 
       // [START_EXCLUDE]
       if (displayName == null) {
-        document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
+        // document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
 
       } else {
-        document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
+        // document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
       }
 
       // document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
@@ -149,21 +150,23 @@ function initApp() {
       // [END_EXCLUDE]
     } else {
       console.log("SIGNED OUT");
-
+      $(".buttonToolbar").toggleClass("hidden");
+      $("#sign-in-btn").toggleClass("hidden");
+      $("#react").toggleClass("hidden");
+      $(".loader").fadeOut("slow");
 
       // User is signed out.
       // [START_EXCLUDE]
 
-      document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
+      // document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
-      $(".loader").fadeOut("slow");
-      console.log("signed out");
+
       // [END_EXCLUDE]
     }
 
     // [START_EXCLUDE]
-    $(".loader").fadeOut("slow");
-    document.getElementById('sign-in').disabled = false; //disable the sign in button
+    // $(".loader").fadeOut("slow");
+    document.getElementById('sign-in-btn').disabled = false; //disable the sign in button
     // [END_EXCLUDE]
   });
   // [END authstatelistener]
