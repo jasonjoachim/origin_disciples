@@ -1,11 +1,8 @@
 body{
-    background-color: black;
-
-}
-.container{
     background-image: url("../images/pink dust.png");
 
 }
+
 .jumbotron{
     background-color: #454545;
     font-family: 'Righteous', cursive;
