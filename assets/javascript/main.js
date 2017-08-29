@@ -99,7 +99,7 @@ function showOnly(someDiv) {
 
 //hide all sections
 function hideAllSections() {
-	
+
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}

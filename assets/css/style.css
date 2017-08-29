@@ -1,11 +1,8 @@
 body{
-    background-color: black;
-
-}
-.container{
     background-image: url("../images/pink dust.png");
 
 }
+
 .jumbotron{
     background-color: #454545;
     font-family: 'Righteous', cursive;
@@ -49,9 +46,13 @@ button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-.buttonToolbar button {
-  width: 23%;
+.buttonToolbar {
+  display: flex;
+  justify-content: space-between;
 }
+ .buttonToolbar button {
+  width: 24%;
+} 
 
 header, #user-area{
   /*display: none;*/
@@ -65,6 +66,17 @@ header, #user-area{
 	height: 100%;
 	z-index: 9999;
 	background: rgb(249,249,249);
+}
+
+.loading-anim {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
 }
 
 /*.loader .loading-small {
