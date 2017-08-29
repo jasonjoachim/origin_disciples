@@ -9,32 +9,22 @@ var source;
 
 
 window.onload = function() {
-	// $("#user-area").hide();
-	// $("#sign-out").hide();
-	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
+	displayFeed();
 
-	// setTimeout(	function(){if (firebase.auth().currentUser) {
-	// 		console.log("signed in as "+firebase.auth().currentUser.displayName);
-	// 	} else {
-	// 		console.log("signed out");
-	// 	}}, 3000);
-
-
-  //TODO get the stuff AFTER we've logged in.
-		source = pickNewSource();
-		getNews(source);
+  //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
+	source = pickNewSource();
+	getNews(source);
 };
 
-// ========== Click Handlers ===========
 
 //Defunct //TODO remove.
-$("#sign-out").on("click", function (event){
-	toggleSignIn();
-	$("#profile-dropdown").html("Welcome - sign in below");
-	// $("#user-area").hide();
-});
+// $("#sign-out").on("click", function (event){
+// 	toggleSignIn();
+// 	$("#profile-dropdown").html("Welcome - sign in below");
+// 	// $("#user-area").hide();
+// });
 
 $("#i-feel").on("click", function (event){
 	event.preventDefault();
@@ -72,7 +62,7 @@ function getResponseGifs(input) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-	});
+	})
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
@@ -104,7 +94,7 @@ function showOnly(someDiv) {
 
 //hide all sections
 function hideAllSections() {
-	
+
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}
@@ -117,7 +107,6 @@ function hideAllSections() {
 		$("#feed").addClass("hidden");
 	}
 }
-
 
 function initDB() {
   config = {
@@ -136,7 +125,7 @@ function pickNewSource () {
   return sourceArray[randomNumber];
 }
 
-// Returns 10 popular articles
+// Returns 10 popular article
 function getNews(source) {
 // function getNews(source, sortBy) { //can also specify an option for sorting
 console.log(source);
@@ -257,8 +246,11 @@ var newGif;
 //GIF, and timestamp.
 function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	var newNewsItem = $("<div>");
+	var link = $("<a>").attr("href", newsItem.url);
+	link.attr("target", "_blank")
 	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
+	link.append(headline);
 	var time, image;
 
 
@@ -278,7 +270,7 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 		time = $("<div>").attr("class","response-time").text(moment(newsItem.publishedAt).format("ddd, h:mm A"));
 
 	}
-	newNewsItem.append(headline, blurb, image, time);
+	newNewsItem.append(link, blurb, image, time);
 	return newNewsItem;
 }
 
@@ -294,7 +286,6 @@ function displayAllFromUser(uid){
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
 	});
-
 }
 
 //This is the command to get the last ten responses.
@@ -339,3 +330,44 @@ function resetAll() {
 	source = pickNewSource();
 	getNews(source);
 }
+
+$("#feed").on("click", ".feed-box", function(){
+	
+
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+    
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+    }
+    
+    
+});
+
+function displayFeed(){
+
+  firebase.database().ref("/responses").limitToLast(10).on("child_added", function(snapshot){
+    
+    var gifURL = snapshot.val().gifURL;
+    var link = snapshot.val().article.url;
+    var title = snapshot.val().article.title;
+    var description = snapshot.val().article.description;
+    var newsItem = snapshot.val().article
+
+    // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
+
+    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div>");
+   
+    var newNewsItem = newsItemHTML(newsItem);
+    newNewsItem.addClass("feed-news-box");
+    newNewsItem.addClass("hidden");
+    newDiv.append(newNewsItem);
+
+     $("#feed").append(newDiv);
+  });
+};
+
