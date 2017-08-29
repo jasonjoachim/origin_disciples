@@ -9,24 +9,19 @@ var source;
 
 
 window.onload = function() {
-	// $("#user-area").hide();
-	// $("#sign-out").hide();
-	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
-	// setTimeout(	function(){if (firebase.auth().currentUser) {
-	// 		console.log("signed in as "+firebase.auth().currentUser.displayName);
-	// 	} else {
-	// 		console.log("signed out");
-	// 	}}, 3000);
-
-
-  //TODO get the stuff AFTER we've logged in.
 };
 
-// ========== Click Handlers ===========
 
+
+//Defunct //TODO remove.
+// $("#sign-out").on("click", function (event){
+// 	toggleSignIn();
+// 	$("#profile-dropdown").html("Welcome - sign in below");
+// 	// $("#user-area").hide();
+// });
 
 $("#i-feel").on("click", function (event){
 	event.preventDefault();
@@ -72,7 +67,7 @@ function getResponseGifs(input) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-	});
+	})
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
@@ -86,14 +81,23 @@ function getResponseGifs(input) {
 	  toggleSignIn();
 	});
 
-	// $(".buttonToolbar").on("click", function(event) {
-	// 	var thisSection = $(event.target).attr("target");
-	// 	if (thisSection == "sign-in-out-btn") {
-	// 		// toggleSignIn();
-	// 	} else {
-	// 		showOnly(thisSection)
-	// 	}
-	// });
+	$(".buttonToolbar").on("click", function(event) {
+		var thisSection = $(event.target).attr("target");
+		if (thisSection == "sign-in-out-btn") {
+			toggleSignIn();
+		} else {
+			showOnly(thisSection)
+			if (thisSection == "#feed") {
+				// displayFeed(); //TODO I want to change this later.
+			} else if (thisSection == "#react") {
+				//displayAllFromUser() //TODO fix this stuff.
+			} else if (thisSection == "#diary") {
+
+			}
+		}
+
+
+	});
 
 
 
@@ -108,7 +112,7 @@ function showOnly(someDiv) {
 
 //hide all sections
 function hideAllSections() {
-	
+
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}
@@ -121,7 +125,6 @@ function hideAllSections() {
 		$("#feed").addClass("hidden");
 	}
 }
-
 
 function initDB() {
   config = {
@@ -140,7 +143,7 @@ function pickNewSource () {
   return sourceArray[randomNumber];
 }
 
-// Returns 10 popular articles
+// Returns 10 popular article
 function getNews(source) {
 // function getNews(source, sortBy) { //can also specify an option for sorting
 console.log(source);
@@ -227,21 +230,22 @@ function giphyRandomAPI(response) {
 	putGifOnPage([response.data.image_original_url])
 }
 
-function displayRandomGif() {
-	reaction = $("#emo-input").val().trim();
-	if (reaction.indexOf(" ") === -1){
-	// console.log("response verified")
-
-	//loop through ajax requests to get 10 random images
-		for (i=0; i<10; i++){
-			getFromGiphy("random");
-		}
-	}
-}
+//DEFUNCT
+// function displayRandomGif() {
+// 	reaction = $("#emo-input").val().trim();
+// 	if (reaction.indexOf(" ") === -1){
+// 	// console.log("response verified")
+//
+// 	//loop through ajax requests to get 10 random images
+// 		for (i=0; i<10; i++){
+// 			getFromGiphy("random");
+// 		}
+// 	}
+// }
 
 function putGifOnPage(urlArray) {
 	console.log(urlArray);
-var newGif;
+	var newGif;
 	for (var i = 0; i < urlArray.length; i++) {
 		newGif = $("<img>");
 		newGif.attr("src", urlArray[i]);
@@ -261,8 +265,11 @@ var newGif;
 //GIF, and timestamp.
 function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	var newNewsItem = $("<div>");
+	var link = $("<a>").attr("href", newsItem.url);
+	link.attr("target", "_blank")
 	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
+	link.append(headline);
 	var time, image;
 
 
@@ -282,7 +289,7 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 		time = $("<div>").attr("class","response-time").text(moment(newsItem.publishedAt).format("ddd, h:mm A"));
 
 	}
-	newNewsItem.append(headline, blurb, image, time);
+	newNewsItem.append(link, blurb, image, time);
 	return newNewsItem;
 }
 
@@ -291,14 +298,13 @@ function displayAllFromUser(uid){
 	//Line below also workd, we might need it later.
 	// firebase.database().ref('/user-responses/' + uid).once('value').then(function(snapshot) {
 
-	firebase.database().ref('/user-responses/' + uid).on('child_added', function(snap) {
+	firebase.database().ref('/user-responses/' + uid).limitToLast(10).on('child_added', function(snap) {
 		// console.log(snap.val());
-		$(".timeline").append( newsItemHTML( snap.val().article,
+		$(".timeline").prepend( newsItemHTML( snap.val().article,
 																		 snap.val().reactionText,
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
 	});
-
 }
 
 //This is the command to get the last ten responses.
@@ -343,3 +349,43 @@ function resetAll() {
 	source = pickNewSource();
 	getNews(source);
 }
+
+$("#feed").on("click", ".feed-box", function(){
+
+
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+    }
+
+
+});
+
+function displayFeed(){
+
+  firebase.database().ref("/responses").limitToLast(10).on("child_added", function(snapshot){
+
+    var gifURL = snapshot.val().gifURL;
+    var link = snapshot.val().article.url;
+    var title = snapshot.val().article.title;
+    var description = snapshot.val().article.description;
+    var newsItem = snapshot.val().article
+
+    // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
+
+    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div>");
+
+    var newNewsItem = newsItemHTML(newsItem);
+    newNewsItem.addClass("feed-news-box");
+    newNewsItem.addClass("hidden");
+    newDiv.append(newNewsItem);
+
+     $("#feed-container").append(newDiv);
+  });
+};

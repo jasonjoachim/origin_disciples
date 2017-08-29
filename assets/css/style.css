@@ -1,12 +1,9 @@
 body{
-background-image: url("../images/pink dust.png");
 
+    background-image: url("../images/pink dust.png");
 
 }
-.container{
-/*    background-image: url("../images/pink dust.png");
-*/
-}
+
 .jumbotron{
     background-color: #454545;
     font-family: 'Righteous', cursive;
@@ -50,8 +47,15 @@ button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-.buttonToolbar button {
-  width: 23%;
+.gif-dump{
+    background-color: #454545;
+}
+.buttonToolbar {
+  display: flex;
+  justify-content: space-between;
+}
+ .buttonToolbar button {
+  width: 24%;
 }
 
 header, #user-area{
@@ -98,6 +102,17 @@ header, #user-area{
     border-radius: 30px;
 }
 
+.loading-anim {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+}
+
 /*.loader .loading-small {
   display: grid;
   grid-template-columns: 100px;
@@ -123,7 +138,7 @@ header, #user-area{
   padding: 20px;
   background-color: #454545;
 }
-.news-article .headline {
+.news-article a {
   grid-area: head;
   background-color: #454545;
   font-family: 'Righteous', cursive;
@@ -140,6 +155,8 @@ header, #user-area{
   color: white;
   font-size: 16px;
 }
+
+/*Used for reaction article display*/
 .news-article .gif {
   grid-area:gif;
   max-height: 200px;
@@ -157,8 +174,9 @@ header, #user-area{
   overflow: hidden;
   max-width: 250px;*/
 }
+/*END news article display section*/
 
-/*START history section*/
+/*START diary section*/
 .timeline{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -180,9 +198,27 @@ header, #user-area{
   max-width: 100%;
   max-height: none;
 }
+/*END */
+/*START feed page*/
 
+#feed-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
 
+#feed-container img{
+  max-width: 200px;
+  max-width: 100%;
+}
+
+.feed-box{
+  margin: auto;
+  margin-top: 20px;
+}
+
+/*END feed container*/
+/*START utility*/
 .hidden{
   display: hide;
 }
-

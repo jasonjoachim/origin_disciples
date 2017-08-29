@@ -145,8 +145,15 @@ function initApp() {
 
       $(".loader").fadeOut(2000);
       console.log("Successfully Signed in");
+
+      $(".loader").fadeOut("slow");
+      // console.log("Successfully Signed in");
+
       source = pickNewSource();
   		getNews(source);
+      displayFeed();
+      displayAllFromUser(firebase.auth().currentUser.uid);
+
       // [END_EXCLUDE]
     } else {
       console.log("SIGNED OUT");
