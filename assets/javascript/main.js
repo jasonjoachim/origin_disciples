@@ -27,12 +27,6 @@ window.onload = function() {
 
 // ========== Click Handlers ===========
 
-//Defunct //TODO remove.
-$("#sign-out").on("click", function (event){
-	toggleSignIn();
-	$("#profile-dropdown").html("Welcome - sign in below");
-	// $("#user-area").hide();
-});
 
 $("#i-feel").on("click", function (event){
 	event.preventDefault();
@@ -52,6 +46,14 @@ $("#emo-input").keypress(function(event) {
 		reaction = input;
 	}
 });
+
+function sayBye(){
+	$(".goodbye-div").toggleClass("hidden");
+}
+
+function revealJumbotron(){
+	$(".jumbotron-container").toggleClass("hidden");
+}
 
 function getResponseGifs(input) {
 	//If the user has put anything in the box, run the translate function, if random, run random.
@@ -74,20 +76,24 @@ function getResponseGifs(input) {
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
+		$(".goodbye-div").toggleClass("hidden");
+		$(".jumbotron-container").toggleClass("hidden");
+		setTimeout(sayBye, 2.5 * 1000);
+		setTimeout(revealJumbotron, 2.5 * 1000);
 	});
 
 	$("#sign-in-btn").on("click", function (event) {
 	  toggleSignIn();
 	});
 
-	$(".buttonToolbar").on("click", function(event) {
-		var thisSection = $(event.target).attr("target");
-		if (thisSection == "sign-in-out-btn") {
-			toggleSignIn();
-		} else {
-			showOnly(thisSection)
-		}
-	});
+	// $(".buttonToolbar").on("click", function(event) {
+	// 	var thisSection = $(event.target).attr("target");
+	// 	if (thisSection == "sign-in-out-btn") {
+	// 		// toggleSignIn();
+	// 	} else {
+	// 		showOnly(thisSection)
+	// 	}
+	// });
 
 
 

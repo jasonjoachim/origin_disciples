@@ -143,7 +143,7 @@ function initApp() {
       // document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
 
 
-      $(".loader").fadeOut("slow");
+      $(".loader").fadeOut(2000);
       console.log("Successfully Signed in");
       source = pickNewSource();
   		getNews(source);
@@ -153,8 +153,7 @@ function initApp() {
       $(".buttonToolbar").toggleClass("hidden");
       $("#sign-in-btn").toggleClass("hidden");
       $("#react").toggleClass("hidden");
-      $(".loader").fadeOut("slow");
-
+      $(".loader").fadeOut(2000);
       // User is signed out.
       // [START_EXCLUDE]
 

@@ -31,16 +31,21 @@
 
 </head>
 <body>
-  <div class="loader">
-    <div class="loading-small">
-      <!-- <img src="svgtest.svg" style="width: 100px;" alt=""> -->
+    <div class="loader">
+        <div class="loading-small">
+          <img src="svgtest.svg" style="width: 100px;" alt="">
+        </div>
+
     </div>
-  </div>
+
+    <div class="container goodbye-div hidden"> 
+        <h1 id="goodbye-message">Sorry to see you go!</h1> 
+    </div> <!-- goodbye-div -->
 
   <!--navigation  -->
   <header>
 
-    <div class="buttonToolbar signed-in-only">
+    <div class="buttonToolbar signed-in-only container">
       <button id="sign-out-btn">Sign Out</button>
       <button target="#feed" id="feed-btn">Feed</button>
       <button target="#react" id="react-btn">React</button>
@@ -50,7 +55,7 @@
   </header><br>
 
     <!-- this will be for the trending news item -->
-    <div class="container">
+    <div class="container jumbotron-container">
         <div class="jumbotron">
             <h1>My Response When</h1>
             <p>Gif Reacts to News</p>
@@ -102,6 +107,7 @@
     <div class="container signed-in-only section hidden" id="feed">
 
     </div>
+
 
       <script type="text/javascript" src="assets/javascript/main.js"></script>
 
