@@ -9,9 +9,6 @@ var source;
 
 
 window.onload = function() {
-	// $("#user-area").hide();
-	// $("#sign-out").hide();
-	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -23,8 +20,6 @@ window.onload = function() {
 
 
   //TODO get the stuff AFTER we've logged in.
-		source = pickNewSource();
-		getNews(source);
 };
 
 // ========== Click Handlers ===========
@@ -104,7 +99,7 @@ function showOnly(someDiv) {
 
 //hide all sections
 function hideAllSections() {
-	
+
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}

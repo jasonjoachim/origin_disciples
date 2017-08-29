@@ -144,7 +144,7 @@ function initApp() {
 
 
       $(".loader").fadeOut("slow");
-      console.log("Successfully Signed in");
+      // console.log("Successfully Signed in");
       source = pickNewSource();
   		getNews(source);
       // [END_EXCLUDE]
