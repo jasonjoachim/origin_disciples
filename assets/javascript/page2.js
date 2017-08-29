@@ -18,30 +18,46 @@ $("#feed").on("click", function(){
 });
 
 
-$(".gif-dump").on("click", ".feed-box", function(){
-    var newGIF = $(this).val();
+$(".gif-dump").on("click", ".feed-box", function(event){
+    var clickedGif = $(event.target);
 
-    if ($("#" + newGIF).val() === "display"){
-      $("#" + newGIF).css("display", "none");
-      $("#" + newGIF).attr("value", "hide");
+    //You can also use hide.
+    // clickedGif.hide();
 
+    // console.log(clickedGif.value()); //Does work!
+    // console.log(clickedGif.attr('value')); //Works
+    // console.log(clickedGif.data()); //Another option
+
+
+    if (clickedGif.attr('value') === "display"){
+      clickedGif.css("filter", "blur(5px)");
+      clickedGif.attr("value", "blur")
     }else{
-      $("#" + newGIF).css("display", "block");
-      $("#" + newGIF).attr("value", "display");
+      clickedGif.css("filter", "blur(0)");
+      clickedGif.attr("value", "display")
     }
 });
 
 function displayFeed(){
 
   database.ref("/responses").limitToLast(10).on("child_added", function(snapshot){
-    
     var gifURL = snapshot.val().gifURL;
-    var link = snapshot.val().url;
-    var title = snapshot.val().title;
-    var decription = snapshot.val().description;
+    var link = snapshot.val().article.url;
+    var title = snapshot.val().article.title;
+    var description = snapshot.val().article.description;
 
-    var newDiv = $("<div class='feed-box' value='" + gifURL "'><img src='" + gifURL + "' id='" + gifURL + " value='display' class='feed-GIF'><h2>" + title + "</h2><p>" + description + "</div><br>");
+    var newDiv = $("<div>");
+    newDiv.attr("class","feed-box").data(gifURL);
     
+    newImg = $("<img>").attr({src:gifURL, id: gifURL, value: 'display', class: 'gif'});
+    newImg.append($("<h2>").text(title)).append($("<p>").text(description));
+
+    newDiv.append(newImg);
+
+
+    // var newDiv = $("<div class='feed-box' value='" + gifURL "'><img src='" + gifURL + "' id='" + gifURL
+    // + " value='display' class='feed-GIF'><h2>" + title + "</h2><p>" + description + "</div><br>");
+    //
     $(".gif-dump").append(newDiv);
     $(".feed-GIF").css("z-index", "2");
   });
