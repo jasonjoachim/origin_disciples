@@ -15,7 +15,7 @@ window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
-	setInterval(	function(){if (firebase.auth().currentUser) {
+	setTimeout(	function(){if (firebase.auth().currentUser) {
 			console.log("signed in as "+firebase.auth().currentUser.displayName);
 		} else {
 			console.log("signed out");
