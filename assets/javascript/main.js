@@ -11,6 +11,7 @@ var source;
 window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
+	displayFeed();
 
   //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
 	source = pickNewSource();
@@ -61,13 +62,7 @@ function getResponseGifs(input) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-<<<<<<< HEAD
 	})
-
-// ======= Function Definitions ========
-
-=======
-	});
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
@@ -113,8 +108,6 @@ function hideAllSections() {
 	}
 }
 
-
->>>>>>> 7746026417b2f73424081a51da7b921ac9b12d09
 function initDB() {
   config = {
    apiKey: "AIzaSyDscLKYL_bkXbpsMx0W3eZBlORMwco9qOI",
@@ -132,7 +125,7 @@ function pickNewSource () {
   return sourceArray[randomNumber];
 }
 
-// Returns 10 popular articles
+// Returns 10 popular article
 function getNews(source) {
 // function getNews(source, sortBy) { //can also specify an option for sorting
 console.log(source);
@@ -338,29 +331,9 @@ function resetAll() {
 	getNews(source);
 }
 
-
 $("#feed").on("click", ".feed-box", function(){
+	
 
-  console.log("clicked");
-    
-    if ($("img", this).attr("value") === "hide"){
-      $("img", this).removeClass("hidden");
-      $(".feed-news-box", this).addClass("hidden");
-      $("img", this).attr("value", "show");
-      console.log("gif showing");
-    
-    } else {
-      $("img", this).addClass("hidden");
-      $(".feed-news-box", this).removeClass("hidden");
-      $("img", this).attr("value", "hide");
-      console.log("news showing")
-    }
-    
-    
-});
-
-$("#feed").on("click", ".feed-box", function(){
-    
     if ($("img", this).attr("value") === "hide"){
       $("img", this).removeClass("hidden");
       $(".feed-news-box", this).addClass("hidden");
@@ -377,7 +350,7 @@ $("#feed").on("click", ".feed-box", function(){
 
 function displayFeed(){
 
-  database.ref("/responses").limitToLast(10).on("child_added", function(snapshot){
+  firebase.database().ref("/responses").limitToLast(10).on("child_added", function(snapshot){
     
     var gifURL = snapshot.val().gifURL;
     var link = snapshot.val().article.url;
@@ -387,7 +360,7 @@ function displayFeed(){
 
     // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
 
-    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div><br>");
+    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div>");
    
     var newNewsItem = newsItemHTML(newsItem);
     newNewsItem.addClass("feed-news-box");

@@ -165,3 +165,9 @@ header, #user-area{
 
 .hidden{
   display: hide;
+}
+
+.feed-box{
+  margin: auto;
+  margin-top: 20px;
+}
