@@ -9,31 +9,16 @@ var source;
 
 
 window.onload = function() {
-	// $("#user-area").hide();
-	// $("#sign-out").hide();
-	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
-
-	setInterval(	function(){if (firebase.auth().currentUser) {
-			console.log("signed in as "+firebase.auth().currentUser.displayName);
-		} else {
-			console.log("signed out");
-		}}, 2000);
-
 
   //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
 	source = pickNewSource();
 	getNews(source);
 };
 
-// ========== Click Handlers ===========
 
-$("#sign-out").on("click", function (event){
-	toggleSignIn();
-	$("#profile-dropdown").html("Welcome - sign in below");
-	// $("#user-area").hide();
-});
+// ========== Click Handlers ===========
 
 //I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
@@ -69,65 +54,9 @@ $("#emo-input").keypress(function(event) {
 		console.log(gifURL);
 		postNewResponse(articleData, reaction, gifURL);
 		resetAll();
-	});
+	})
 
-	$("#diary").on("click", function(){
-
-	});
-
-
-// ======= END click handlers ==========
 // ======= Function Definitions ========
-
-
-function showOnly(someDiv) {
-	if (!$("#react").hasClass("hidden")) {
-		$("#react").addClass("hidden");
-	}
-
-	if (!$("#diary").hasClass("hidden")) {
-		$("#diary").addClass("hidden");
-	}
-
-	if (!$("#feed").hasClass("hidden")) {
-		$("#feed").addClass("hidden");
-	}
-
-	if ($(someDiv).hasClass("hidden")) {
-		$(someDiv).removeClass("hidden");
-	}
-
-}
-
-
-$("#sign-out-btn").on("click", function (event) {
-	firebase.auth().signOut();
-
-	// event.preventDefault;
-	//TODO I commented this out, but we may still want to use togglesignin to do this.
-  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
-});
-
-
-
-$("#sign-in-btn").on("click", function () {
-	toggleSignIn();
-	// event.preventDefault;
-  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE the toggle sign in function.
-});
-
-$("#feed-btn").on("click", function () {
-  showOnly("#feed");
-});
-
-$("#react-btn").on("click", function () {
-  showOnly("#react");
-});
-
-$("#diary-btn").on("click", function () {
-  showOnly("#diary");
-	displayAllFromUser(firebase.auth().currentUser.uid);
-});
 
 function initDB() {
   config = {
@@ -242,8 +171,11 @@ function putGifOnPage(url) {
 //GIF, and timestamp.
 function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	var newNewsItem = $("<div>");
+	var link = $("<a>").attr("href", newsItem.url);
+	link.attr("target", "_blank")
 	var headline = $("<h2>").attr("class","headline").text(newsItem.title);
 	var blurb = $("<div>").attr("class","blurb").text(newsItem.description);
+	link.append(headline);
 	var time, image;
 
 
@@ -263,7 +195,7 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 		time = $("<div>").attr("class","response-time").text(moment(newsItem.publishedAt).format("ddd, h:mm A"));
 
 	}
-	newNewsItem.append(headline, blurb, image, time);
+	newNewsItem.append(link, blurb, image, time);
 	return newNewsItem;
 }
 
@@ -279,7 +211,6 @@ function displayAllFromUser(uid){
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
 	});
-
 }
 
 //This is the command to get the last ten responses.
@@ -324,3 +255,64 @@ function resetAll() {
 	source = pickNewSource();
 	getNews(source);
 }
+
+
+$("#feed").on("click", ".feed-box", function(){
+
+  console.log("clicked");
+    
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+      console.log("gif showing");
+    
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+      console.log("news showing")
+    }
+    
+    
+});
+
+$("#feed").on("click", ".feed-box", function(){
+    
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+    
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+    }
+    
+    
+});
+
+function displayFeed(){
+
+  database.ref("/responses").limitToLast(10).on("child_added", function(snapshot){
+    
+    var gifURL = snapshot.val().gifURL;
+    var link = snapshot.val().article.url;
+    var title = snapshot.val().article.title;
+    var description = snapshot.val().article.description;
+    var newsItem = snapshot.val().article
+
+    // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
+
+    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div><br>");
+   
+    var newNewsItem = newsItemHTML(newsItem);
+    newNewsItem.addClass("feed-news-box");
+    newNewsItem.addClass("hidden");
+    newDiv.append(newNewsItem);
+
+     $("#feed").append(newDiv);
+  });
+};
+
