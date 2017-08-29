@@ -93,7 +93,7 @@ function showOnly(someDiv) {
 }
 
 
-$("#sign-btn").on("click", function () {
+$("#sign-out-btn").on("click", function () {
   toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
 });
 
