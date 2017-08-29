@@ -15,6 +15,13 @@ window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
+	setInterval(	function(){if (firebase.auth().currentUser) {
+			console.log("signed in as "+firebase.auth().currentUser.displayName);
+		} else {
+			console.log("signed out");
+		}}, 2000);
+
+
   //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
 	source = pickNewSource();
 	getNews(source);
@@ -93,8 +100,20 @@ function showOnly(someDiv) {
 }
 
 
-$("#sign-out-btn").on("click", function () {
-  toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
+$("#sign-out-btn").on("click", function (event) {
+	firebase.auth().signOut();
+
+	// event.preventDefault;
+	//TODO I commented this out, but we may still want to use togglesignin to do this.
+  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
+});
+
+
+
+$("#sign-in-btn").on("click", function () {
+	toggleSignIn();
+	// event.preventDefault;
+  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE the toggle sign in function.
 });
 
 $("#feed-btn").on("click", function () {

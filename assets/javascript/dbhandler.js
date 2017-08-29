@@ -60,13 +60,16 @@ function toggleSignIn() {
     // [START signin]
     firebase.auth().signInWithRedirect(provider);
     // [END signin]
+
   } else {
     // [START signout]
     firebase.auth().signOut();
+
     // [END signout]
   }
   // [START_EXCLUDE]
-  document.getElementById('sign-in').disabled = true;
+
+  document.getElementById('sign-in-btn').disabled = true;
   // [END_EXCLUDE]
 }
 // [END buttoncallback]
@@ -130,18 +133,17 @@ function initApp() {
 
       if (displayName == null) {
         document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
+
       } else {
         document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
       }
-
+      
       document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
 
 
       $(".loader").fadeOut("slow");
       //TODO call other functions here....
       console.log("Successfully Signed in");
-      // source = pickNewSource();
-      // getNews(source);
 
       // [START_EXCLUDE]
       // document.getElementById('sign-in-status').textContent = 'Signed in';
@@ -155,13 +157,14 @@ function initApp() {
       // User is signed out.
       // [START_EXCLUDE]
       // document.getElementById('sign-in-status').textContent = 'Signed out';
-      document.getElementById('sign-in').textContent = 'Sign in with GitHub';
+      // document.getElementById('sign-in').textContent = 'Sign in with GitHub';
 
       // document.getElementsByTagName('header')[0].style.display = 'none'; //Hide interaction areas
       // document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
       document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
       $(".loader").fadeOut("slow");
+      console.log("signed out");
       // document.getElementById('account-details').textContent = 'null';
       // document.getElementById('oauthtoken').textContent = 'null';
       // [END_EXCLUDE]
@@ -173,7 +176,7 @@ function initApp() {
     // [END_EXCLUDE]
   });
   // [END authstatelistener]
-  document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+  // document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
 }
 
 
