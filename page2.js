@@ -18,5 +18,5 @@ database.ref("/responses").on("child_added", function(snapshot){
 
 	var newLink = $("<div class='gif-display-boxes'> <a target='_blank' href='" + link + "'><img src='" + gif + "'></a> </div> <br>");
 	
-	$(".gif-dump").append(newLink);
+	$(".gif-container").append(newLink);
 });
