@@ -46,6 +46,9 @@ button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+.gif-dump{
+    background-color: #454545;  
+}
 .buttonToolbar {
   display: flex;
   justify-content: space-between;
