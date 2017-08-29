@@ -41,6 +41,14 @@ $("#emo-input").keypress(function(event) {
 	}
 });
 
+function sayBye(){
+	$(".goodbye-div").toggleClass("hidden");
+}
+
+function revealJumbotron(){
+	$(".jumbotron-container").toggleClass("hidden");
+}
+
 function getResponseGifs(input) {
 	//If the user has put anything in the box, run the translate function, if random, run random.
 	input ? getFromGiphy("translate", input) : getFromGiphy("random", input);
@@ -62,6 +70,10 @@ function getResponseGifs(input) {
 
 	$("#sign-out-btn").on("click", function (event) {
 		firebase.auth().signOut();
+		$(".goodbye-div").toggleClass("hidden");
+		$(".jumbotron-container").toggleClass("hidden");
+		setTimeout(sayBye, 2.5 * 1000);
+		setTimeout(revealJumbotron, 2.5 * 1000);
 	});
 
 	$("#sign-in-btn").on("click", function (event) {

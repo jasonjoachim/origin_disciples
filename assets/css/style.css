@@ -62,13 +62,43 @@ header, #user-area{
 }
 /*Loading screen*/
 .loader {
-	position: fixed;
+/*	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 100%;
-	height: 100%;
-	z-index: 9999;
+	width: 100vh;
+	height: 100vh;*/
+	z-index: 9998;
 	background: rgb(249,249,249);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader img {
+  width: 100vh;
+  height: 100vh;
+  z-index: 9998;
+/*  background: rgb(249,249,249);*/
+}
+
+.goodbye-div {
+  /*  position: fixed;
+    left: 0px;
+    top: 0px;*/
+  width: 100vh;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.goodbye-div h1 {
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    color: #ff5052;
+    text-shadow: 4px 4px 8px #008070;
+    border-radius: 30px;
 }
 
 .loading-anim {
