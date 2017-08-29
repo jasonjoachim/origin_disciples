@@ -20,8 +20,6 @@ window.onload = function() {
 
 
   //TODO get the stuff AFTER we've logged in.
-		source = pickNewSource();
-		getNews(source);
 };
 
 // ========== Click Handlers ===========
