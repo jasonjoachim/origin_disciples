@@ -147,6 +147,9 @@ function initApp() {
       // console.log("Successfully Signed in");
       source = pickNewSource();
   		getNews(source);
+      displayFeed();
+      displayAllFromUser(firebase.auth().currentUser.uid);
+
       // [END_EXCLUDE]
     } else {
       console.log("SIGNED OUT");

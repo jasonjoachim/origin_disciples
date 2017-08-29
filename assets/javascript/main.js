@@ -11,7 +11,6 @@ var source;
 window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
-	displayFeed();
 
 };
 
@@ -75,7 +74,16 @@ function getResponseGifs(input) {
 			toggleSignIn();
 		} else {
 			showOnly(thisSection)
+			if (thisSection == "#feed") {
+				// displayFeed(); //TODO I want to change this later.
+			} else if (thisSection == "#react") {
+				//displayAllFromUser() //TODO fix this stuff.
+			} else if (thisSection == "#diary") {
+
+			}
 		}
+
+
 	});
 
 
@@ -209,21 +217,22 @@ function giphyRandomAPI(response) {
 	putGifOnPage([response.data.image_original_url])
 }
 
-function displayRandomGif() {
-	reaction = $("#emo-input").val().trim();
-	if (reaction.indexOf(" ") === -1){
-	// console.log("response verified")
-
-	//loop through ajax requests to get 10 random images
-		for (i=0; i<10; i++){
-			getFromGiphy("random");
-		}
-	}
-}
+//DEFUNCT
+// function displayRandomGif() {
+// 	reaction = $("#emo-input").val().trim();
+// 	if (reaction.indexOf(" ") === -1){
+// 	// console.log("response verified")
+//
+// 	//loop through ajax requests to get 10 random images
+// 		for (i=0; i<10; i++){
+// 			getFromGiphy("random");
+// 		}
+// 	}
+// }
 
 function putGifOnPage(urlArray) {
 	console.log(urlArray);
-var newGif;
+	var newGif;
 	for (var i = 0; i < urlArray.length; i++) {
 		newGif = $("<img>");
 		newGif.attr("src", urlArray[i]);

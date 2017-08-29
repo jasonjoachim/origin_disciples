@@ -47,7 +47,7 @@ button:active {
   transform: translateY(4px);
 }
 .gif-dump{
-    background-color: #454545;  
+    background-color: #454545;
 }
 .buttonToolbar {
   display: flex;
@@ -55,7 +55,7 @@ button:active {
 }
  .buttonToolbar button {
   width: 24%;
-} 
+}
 
 header, #user-area{
   /*display: none;*/
@@ -107,7 +107,7 @@ header, #user-area{
   padding: 20px;
   background-color: #454545;
 }
-.news-article .headline {
+.news-article a {
   grid-area: head;
   background-color: #454545;
   font-family: 'Righteous', cursive;
@@ -124,6 +124,8 @@ header, #user-area{
   color: white;
   font-size: 16px;
 }
+
+/*Used for reaction article display*/
 .news-article .gif {
   grid-area:gif;
   max-height: 200px;
@@ -141,8 +143,9 @@ header, #user-area{
   overflow: hidden;
   max-width: 250px;*/
 }
+/*END news article display section*/
 
-/*START history section*/
+/*START diary section*/
 .timeline{
   display: grid;
   grid-template-columns: 1fr 1fr;
