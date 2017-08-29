@@ -67,7 +67,15 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
+/*.loader .loading-small {
+  display: grid;
+  grid-template-columns: 100px;
+  justify-content: center;
+}*/
 
+.gif {
+  max-width: 200px;
+}
 
 /*Main news article display*/
 .news-article {

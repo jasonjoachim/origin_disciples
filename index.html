@@ -31,16 +31,20 @@
 
 </head>
 <body>
-  <!-- <div class="loader"></div> -->
+  <div class="loader">
+    <div class="loading-small">
+      <!-- <img src="svgtest.svg" style="width: 100px;" alt=""> -->
+    </div>
+  </div>
 
   <!--navigation  -->
   <header>
 
-    <div class="buttonToolbar">
+    <div class="buttonToolbar signed-in-only">
       <button id="sign-out-btn">Sign Out</button>
-      <button id="feed-btn">Feed</button>
-      <button id="react-btn">React</button>
-      <button id="diary-btn">Diary</button>
+      <button target="#feed" id="feed-btn">Feed</button>
+      <button target="#react" id="react-btn">React</button>
+      <button target="#diary" id="diary-btn">Diary</button>
     </div>
 
   </header><br>
@@ -56,11 +60,11 @@
             <!-- <p>Sign in with your GitHub account below.</p> -->
 
             <!-- Button that handles sign-in/sign-out -->
-            <button  class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-btn">Sign in with GitHub</button>
+            <button  class="mdl-button mdl-js-button mdl-button--raised signed-out-only sign-in-out-btn hidden" id="sign-in-btn">Sign in with GitHub</button>
         </div>
     </div>
 
-    <div class="container" id="react">
+    <div class="container signed-in-only section" id="react">
         <div class="panel panel-default" id="user-area">
             <div class="panel-body">Trending Topic</div>
             <div class="news" id="news-container"></div>
@@ -88,14 +92,14 @@
   </div>
 
 
-    <div class="container hidden" id="diary">
+    <div class="container signed-in-only section hidden" id="diary">
         <div class="panel panel-default">
             <div class="panel-body">Your history</div>
         </div>
             <div class="timeline"></div>
     </div>
 
-    <div class="container hidden" id="feed">
+    <div class="container signed-in-only section hidden" id="feed">
 
     </div>
 

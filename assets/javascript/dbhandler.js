@@ -119,7 +119,10 @@ function initApp() {
   // Listening for auth state changes.
   // [START authstatelistener]
   firebase.auth().onAuthStateChanged(function(user) {
+    console.log("AUTH STATE CHANGE");
     if (user) {
+      console.log("SIGNED IN");
+      // $(".buttonToolbar").toggleClass("hidden");
       // User is signed in.
       var displayName = user.displayName;
       var email = user.email;
@@ -129,50 +132,41 @@ function initApp() {
       var uid = user.uid;
       var providerData = user.providerData;
 
-      //TODO move this out to main.js --
-
+      // [START_EXCLUDE]
       if (displayName == null) {
-        document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
+        // document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
 
       } else {
-        document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
+        // document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
       }
-      
-      document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
+
+      // document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
 
 
       $(".loader").fadeOut("slow");
-      //TODO call other functions here....
       console.log("Successfully Signed in");
-
-      // [START_EXCLUDE]
-      // document.getElementById('sign-in-status').textContent = 'Signed in';
-      // document.getElementById('sign-in').textContent = 'Sign out';
-      // document.getElementById('account-details').textContent = JSON.stringify(user, null, '  ');
-// console.log(JSON.stringify(user, null, '  '));
+      source = pickNewSource();
+  		getNews(source);
       // [END_EXCLUDE]
     } else {
-
+      console.log("SIGNED OUT");
+      $(".buttonToolbar").toggleClass("hidden");
+      $("#sign-in-btn").toggleClass("hidden");
+      $("#react").toggleClass("hidden");
+      $(".loader").fadeOut("slow");
 
       // User is signed out.
       // [START_EXCLUDE]
-      // document.getElementById('sign-in-status').textContent = 'Signed out';
-      // document.getElementById('sign-in').textContent = 'Sign in with GitHub';
 
-      // document.getElementsByTagName('header')[0].style.display = 'none'; //Hide interaction areas
-      // document.getElementById('user-area').style.display = 'none'; //Hide interaction areas
-      document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
+      // document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
 
-      $(".loader").fadeOut("slow");
-      console.log("signed out");
-      // document.getElementById('account-details').textContent = 'null';
-      // document.getElementById('oauthtoken').textContent = 'null';
+
       // [END_EXCLUDE]
     }
 
     // [START_EXCLUDE]
-    $(".loader").fadeOut("slow");
-    document.getElementById('sign-in').disabled = false; //disable the sign in button
+    // $(".loader").fadeOut("slow");
+    document.getElementById('sign-in-btn').disabled = false; //disable the sign in button
     // [END_EXCLUDE]
   });
   // [END authstatelistener]
