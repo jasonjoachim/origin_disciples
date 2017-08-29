@@ -67,7 +67,15 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
+/*.loader .loading-small {
+  display: grid;
+  grid-template-columns: 100px;
+  justify-content: center;
+}*/
 
+.gif {
+  max-width: 200px;
+}
 
 /*Main news article display*/
 .news-article {
@@ -83,7 +91,6 @@ header, #user-area{
   min-width: 240px;
   padding: 20px;
   background-color: #454545;
-  /*border-radius: 5%;*/
 }
 .news-article .headline {
   grid-area: head;
@@ -123,9 +130,7 @@ header, #user-area{
 /*START history section*/
 .timeline{
   display: grid;
-  /*display: none; /*Default hidden*/*/
   grid-template-columns: 1fr 1fr;
-  /*grid-template-areas: "resp resp";*/
   grid-gap: 20px;
   /*justify-items: center;*/
 }
