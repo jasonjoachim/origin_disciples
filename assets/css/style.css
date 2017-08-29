@@ -177,3 +177,6 @@ header, #user-area{
   max-width: 100%;
   max-height: none;
 }
+.hidden{
+  display: hide;
+}
