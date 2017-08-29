@@ -12,23 +12,30 @@
 var database = firebase.database();
 
 $("#feed").on("click", function(){
-  $("#news-container").css("display", "none");
+  $("#news-container").css("display");
   $("#emoField").css("display", "none");
 
 });
 
 
-$(".gif-dump").on("click", ".feed-box", function(){
-    var newGIF = $(this).val();
+$("#feed").on("click", ".feed-box", function(){
 
-    if ($("#" + newGIF).val() === "display"){
-      $("#" + newGIF).css("display", "none");
-      $("#" + newGIF).attr("value", "hide");
-
-    }else{
-      $("#" + newGIF).css("display", "block");
-      $("#" + newGIF).attr("value", "display");
+  console.log("clicked");
+    
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+      console.log("gif showing");
+    
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+      console.log("news showing")
     }
+    
+    
 });
 
 function displayFeed(){
@@ -36,13 +43,21 @@ function displayFeed(){
   database.ref("/responses").limitToLast(10).on("child_added", function(snapshot){
     
     var gifURL = snapshot.val().gifURL;
-    var link = snapshot.val().url;
-    var title = snapshot.val().title;
-    var decription = snapshot.val().description;
+    var link = snapshot.val().article.url;
+    var title = snapshot.val().article.title;
+    var description = snapshot.val().article.description;
+    var newsItem = snapshot.val().article
 
-    var newDiv = $("<div class='feed-box' value='" + gifURL "'><img src='" + gifURL + "' id='" + gifURL + " value='display' class='feed-GIF'><h2>" + title + "</h2><p>" + description + "</div><br>");
+    var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
+
+    // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div><br>");
+
+    // newDiv.append("<div class = 'feed-news-box hidden'>" + newsItemHTML(newsItem) + "</div>");
     
-    $(".gif-dump").append(newDiv);
-    $(".feed-GIF").css("z-index", "2");
+    // var newNewsItem = newsItemHTML(newsItem);
+    // newNewsItem.addClass("feed-news-box");
+    // newDiv.append(newNewsItem);
   });
 };
+
+displayFeed();
