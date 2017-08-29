@@ -285,9 +285,9 @@ function displayAllFromUser(uid){
 	//Line below also workd, we might need it later.
 	// firebase.database().ref('/user-responses/' + uid).once('value').then(function(snapshot) {
 
-	firebase.database().ref('/user-responses/' + uid).on('child_added', function(snap) {
+	firebase.database().ref('/user-responses/' + uid).limitToLast(10).on('child_added', function(snap) {
 		// console.log(snap.val());
-		$(".timeline").append( newsItemHTML( snap.val().article,
+		$(".timeline").prepend( newsItemHTML( snap.val().article,
 																		 snap.val().reactionText,
 																		 snap.val().gifURL,
 																		 snap.val().timestamp));
@@ -373,6 +373,6 @@ function displayFeed(){
     newNewsItem.addClass("hidden");
     newDiv.append(newNewsItem);
 
-     $("#feed").append(newDiv);
+     $("#feed-container").append(newDiv);
   });
 };

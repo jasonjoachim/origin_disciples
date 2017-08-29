@@ -167,13 +167,27 @@ header, #user-area{
   max-width: 100%;
   max-height: none;
 }
+/*END */
+/*START feed page*/
 
+#feed-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
 
-.hidden{
-  display: hide;
+#feed-container img{
+  max-width: 200px;
+  max-width: 100%;
 }
 
 .feed-box{
   margin: auto;
   margin-top: 20px;
+}
+
+/*END feed container*/
+/*START utility*/
+.hidden{
+  display: hide;
 }
