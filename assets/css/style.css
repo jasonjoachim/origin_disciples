@@ -67,7 +67,9 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
-
+.gif {
+  max-width: 200px;
+}
 
 /*Main news article display*/
 .news-article {

@@ -15,31 +15,32 @@ window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
-	setTimeout(	function(){if (firebase.auth().currentUser) {
-			console.log("signed in as "+firebase.auth().currentUser.displayName);
-		} else {
-			console.log("signed out");
-		}}, 2000);
+	// setTimeout(	function(){if (firebase.auth().currentUser) {
+	// 		console.log("signed in as "+firebase.auth().currentUser.displayName);
+	// 	} else {
+	// 		console.log("signed out");
+	// 	}}, 3000);
 
 
-  //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
-	source = pickNewSource();
-	getNews(source);
+  //TODO get the stuff AFTER we've logged in.
+		source = pickNewSource();
+		getNews(source);
 };
 
 // ========== Click Handlers ===========
 
+//Defunct //TODO remove.
 $("#sign-out").on("click", function (event){
 	toggleSignIn();
 	$("#profile-dropdown").html("Welcome - sign in below");
 	// $("#user-area").hide();
 });
 
-//I feel button doesn't do anything right now.
 $("#i-feel").on("click", function (event){
-	// displayRandomGif();
-	// displayGIF();
 	event.preventDefault();
+	var input = $("#emo-input").val();
+	getResponseGifs(input);
+	reaction = input;
 });
 
 //Hitting enter in the input box is the only way to use the site right now.
@@ -49,18 +50,20 @@ $("#emo-input").keypress(function(event) {
 	if (event.which == 13) {
 		event.preventDefault();
 		var input = $("#emo-input").val();
-		console.log(input);
-
-		//If input == translate, then run the translate function, if random, run random.
-		input ? getFromGiphy("translate", input) : getFromGiphy("random", input);
-
-		$("#emo-input").val('');
+		getResponseGifs(input);
 		reaction = input;
-
 	}
 });
 
-	// CLICK HANDLER THAT ACTUALLY SAVES TO FIREBASE AND RESETS EVERYTHING:
+function getResponseGifs(input) {
+	//If the user has put anything in the box, run the translate function, if random, run random.
+	input ? getFromGiphy("translate", input) : getFromGiphy("random", input);
+	//get filler gifs
+	getFromGiphy("search", input);
+	$("#emo-input").val('');
+}
+
+	// CLICK HANDLER THAT ACTUALLY SAVES TO FIREBASE AND RESETS the feed:
 	$(".gif-dump").on("click", ".gif", function(){
 
 		var gifURL = $(this).attr("src");
@@ -71,9 +74,41 @@ $("#emo-input").keypress(function(event) {
 		resetAll();
 	});
 
-	$("#diary").on("click", function(){
+	$("#sign-out-btn").on("click", function (event) {
+		firebase.auth().signOut();
 
+		// event.preventDefault;
+		//TODO I commented this out, but we may still want to use togglesignin to do this.
+	  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
 	});
+
+	$(".buttonToolbar").on("click", function(event) {
+		var thisSection = $(event.target).attr("target");
+		if (thisSection == "sign-in-out-btn") {
+			toggleSignIn();
+		} else {
+			showOnly(thisSection)
+		}
+	});
+
+	// $("#sign-in-btn").on("click", function () {
+	// 	toggleSignIn();
+	// 	// event.preventDefault;
+	//   // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE the toggle sign in function.
+	// });
+	//
+	// $("#feed-btn").on("click", function () {
+	//   showOnly("#feed");
+	// });
+	//
+	// $("#react-btn").on("click", function () {
+	//   showOnly("#react");
+	// });
+	//
+	// $("#diary-btn").on("click", function () {
+	//   showOnly("#diary");
+	// 	displayAllFromUser(firebase.auth().currentUser.uid);
+	// });
 
 
 // ======= END click handlers ==========
@@ -93,41 +128,10 @@ function showOnly(someDiv) {
 		$("#feed").addClass("hidden");
 	}
 
-	if ($(someDiv).hasClass("hidden")) {
-		$(someDiv).removeClass("hidden");
-	}
+	$(someDiv).toggleClass("hidden");
 
 }
 
-
-$("#sign-out-btn").on("click", function (event) {
-	firebase.auth().signOut();
-
-	// event.preventDefault;
-	//TODO I commented this out, but we may still want to use togglesignin to do this.
-  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
-});
-
-
-
-$("#sign-in-btn").on("click", function () {
-	toggleSignIn();
-	// event.preventDefault;
-  // toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE the toggle sign in function.
-});
-
-$("#feed-btn").on("click", function () {
-  showOnly("#feed");
-});
-
-$("#react-btn").on("click", function () {
-  showOnly("#react");
-});
-
-$("#diary-btn").on("click", function () {
-  showOnly("#diary");
-	displayAllFromUser(firebase.auth().currentUser.uid);
-});
 
 function initDB() {
   config = {
@@ -146,7 +150,6 @@ function pickNewSource () {
   return sourceArray[randomNumber];
 }
 
-//GET ALL THE NEWS
 // Returns 10 popular articles
 function getNews(source) {
 // function getNews(source, sortBy) { //can also specify an option for sorting
@@ -154,7 +157,6 @@ console.log(source);
 
   var queryUrl = "https://newsapi.org/v1/articles?"
         +'&source=' + source
-     // + '&sortBy=': sortBy  //We can also pass in an option for sorting
         + '&apiKey=a4e123dfc66f4cfcb2a4bb4e94248c29';
 
   //send off our resquest
@@ -183,7 +185,7 @@ console.log(source);
 //GET ALL THE GIFS
 
 function getFromGiphy(callType, string) {
-	var paths = {random:"/v1/gifs/random?", translate:"/v1/gifs/translate?"},
+	var paths = {random:"/v1/gifs/random?", translate:"/v1/gifs/translate?", search: "/v1/gifs/search?"},
 			url = "https://api.giphy.com" + paths[callType] + "&api_key=60a662cf5d774be4922ed09719bdb709";
 
 	if (paths.hasOwnProperty(callType)) {
@@ -197,6 +199,13 @@ function getFromGiphy(callType, string) {
 			} else {
 				giphyAJAX(url, giphyRandomAPI);
 			}
+		} else if (callType == "search") {
+			if (string != '') {
+				url += "&q=" + string + "&limit=5";
+				giphyAJAX(url, giphySearchAPI);
+			} else {
+				giphyAJAX(url, giphyRandomAPI);
+			}
 		}
 	}
 }
@@ -206,16 +215,26 @@ $.ajax({
 	url: url,
 	method: "GET"
 }).done(function(response){
+	console.log(response);
 		callback(response);
 	});
 }
 
+function giphySearchAPI(response) {
+	// console.log(response.data["0"].images.downsized_large.url);
+	console.log("running search");
+	for (var i = 0; i < response.data.length; i++) {
+		putGifOnPage([response.data[i].images.downsized_large.url])
+	}
+	// putGifOnPage([response.data["0"].images.downsized_large.url])
+}
+
 function giphyTranslateAPI(response) {
-	putGifOnPage(response.data.images.original.webp)
+	putGifOnPage([response.data.images.original.webp])
 }
 
 function giphyRandomAPI(response) {
-	putGifOnPage(response.data.image_original_url)
+	putGifOnPage([response.data.image_original_url])
 }
 
 function displayRandomGif() {
@@ -230,11 +249,21 @@ function displayRandomGif() {
 	}
 }
 
-function putGifOnPage(url) {
-	var newGif = $("<img>")
-	newGif.attr("src", url);
-	newGif.attr("class", "gif");
-	$(".gif-dump").append(newGif);
+function putGifOnPage(urlArray) {
+	console.log(urlArray);
+var newGif;
+	for (var i = 0; i < urlArray.length; i++) {
+		newGif = $("<img>");
+		newGif.attr("src", urlArray[i]);
+		newGif.attr("class", "gif");
+		$(".gif-dump").append(newGif);
+	}
+	// url.forEach(function(item) {
+	// 	var newGif = $("<img>")
+	// 	newGif.attr("src", url);
+	// 	newGif.attr("class", "gif");
+	// 	$(".gif-dump").append(newGif);
+	// });
 }
 
 //Takes an object with headline, description, url, imageurl and generates proper HTML
