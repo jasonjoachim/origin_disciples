@@ -13,9 +13,6 @@ window.onload = function() {
 	initApp(); //sign in with firebase.auth()
 	displayFeed();
 
-  //TODO get the stuff AFTER we've logged in. I put these two lines into the initApp function after login.
-	source = pickNewSource();
-	getNews(source);
 };
 
 
@@ -332,26 +329,26 @@ function resetAll() {
 }
 
 $("#feed").on("click", ".feed-box", function(){
-	
+
 
     if ($("img", this).attr("value") === "hide"){
       $("img", this).removeClass("hidden");
       $(".feed-news-box", this).addClass("hidden");
       $("img", this).attr("value", "show");
-    
+
     } else {
       $("img", this).addClass("hidden");
       $(".feed-news-box", this).removeClass("hidden");
       $("img", this).attr("value", "hide");
     }
-    
-    
+
+
 });
 
 function displayFeed(){
 
   firebase.database().ref("/responses").limitToLast(10).on("child_added", function(snapshot){
-    
+
     var gifURL = snapshot.val().gifURL;
     var link = snapshot.val().article.url;
     var title = snapshot.val().article.title;
@@ -361,7 +358,7 @@ function displayFeed(){
     // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
 
     var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div>");
-   
+
     var newNewsItem = newsItemHTML(newsItem);
     newNewsItem.addClass("feed-news-box");
     newNewsItem.addClass("hidden");
@@ -370,4 +367,3 @@ function displayFeed(){
      $("#feed").append(newDiv);
   });
 };
-
