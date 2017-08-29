@@ -46,9 +46,13 @@ button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-.buttonToolbar button {
-  width: 23%;
+.buttonToolbar {
+  display: flex;
+  justify-content: space-between;
 }
+ .buttonToolbar button {
+  width: 24%;
+} 
 
 header, #user-area{
   /*display: none;*/
