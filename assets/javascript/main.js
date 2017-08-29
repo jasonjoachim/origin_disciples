@@ -9,9 +9,6 @@ var source;
 
 
 window.onload = function() {
-	// $("#user-area").hide();
-	// $("#sign-out").hide();
-	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -104,7 +101,7 @@ function showOnly(someDiv) {
 
 //hide all sections
 function hideAllSections() {
-	
+
 	if (!$("#react").hasClass("hidden")) {
 		$("#react").addClass("hidden");
 	}

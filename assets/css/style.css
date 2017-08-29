@@ -67,6 +67,17 @@ header, #user-area{
 	background: rgb(249,249,249);
 }
 
+.loading-anim {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+}
+
 /*.loader .loading-small {
   display: grid;
   grid-template-columns: 100px;
