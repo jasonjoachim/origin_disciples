@@ -9,9 +9,9 @@ var source;
 
 
 window.onload = function() {
-	$("#user-area").hide();
-	$("#sign-out").hide();
-	$("#your-profile").hide();
+	// $("#user-area").hide();
+	// $("#sign-out").hide();
+	// $("#your-profile").hide();
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
 
@@ -20,13 +20,12 @@ window.onload = function() {
 	getNews(source);
 };
 
-
 // ========== Click Handlers ===========
 
 $("#sign-out").on("click", function (event){
 	toggleSignIn();
 	$("#profile-dropdown").html("Welcome - sign in below");
-	$("#user-area").hide();
+	// $("#user-area").hide();
 });
 
 //I feel button doesn't do anything right now.
@@ -73,14 +72,43 @@ $("#emo-input").keypress(function(event) {
 // ======= END click handlers ==========
 // ======= Function Definitions ========
 
-function showOnly(areaID) {
-	$("#sign-in-area").hide();
-	$("#user-area").hide();
-	$("#response-area").hide();
-	$("#gif-area").hide();
-	$("#timeline").hide();
-	$("#"+areaID).show();
+
+function showOnly(someDiv) {
+	if (!$("#react").hasClass("hidden")) {
+		$("#react").addClass("hidden");
+	}
+
+	if (!$("#diary").hasClass("hidden")) {
+		$("#diary").addClass("hidden");
+	}
+
+	if (!$("#feed").hasClass("hidden")) {
+		$("#feed").addClass("hidden");
+	}
+
+	if ($(someDiv).hasClass("hidden")) {
+		$(someDiv).removeClass("hidden");
+	}
+
 }
+
+
+$("#sign-btn").on("click", function () {
+  toggleSignIn(); //Hey let's show/hide stuff based on sign-in status INSIDE this toggle sign in function.
+});
+
+$("#feed-btn").on("click", function () {
+  showOnly("#feed");
+});
+
+$("#react-btn").on("click", function () {
+  showOnly("#react");
+});
+
+$("#diary-btn").on("click", function () {
+  showOnly("#diary");
+	displayAllFromUser(firebase.auth().currentUser.uid);
+});
 
 function initDB() {
   config = {
