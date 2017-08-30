@@ -9,9 +9,7 @@ var source;
 window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
-	setTimeout(function(){
-		tinyTextSwap(["Gif Reacts to News", "Let's get mad!", "Only the most ridiculous shit."])
-	}, 5000)
+	setInterval(tinyTextSwap, 5000)
 };
 
 $("#i-feel").on("click", function (event){
@@ -190,8 +188,9 @@ function getFromGiphy(callType, string) {
 
 
 //Takes an array of amusing sayings and swaps a random one into the tinytext.
-function tinyTextSwap(array) {
-	$("#tinytext").text(array[random(array.length)]);
+var hilarious = ["Gif Reacts to News", "Let's get mad!", "Only the most ridiculous shit."];
+function tinyTextSwap() {
+	$("#tinytext").text(hilarious[random(hilarious.length)]);
 }
 
 //just spits out a random number
