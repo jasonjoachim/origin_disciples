@@ -9,6 +9,9 @@ var source;
 window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
+	setTimeout(function(){
+		tinyTextSwap(["Gif Reacts to News", "Let's get mad!", "Only the most ridiculous shit."])
+	}, 5000)
 };
 
 $("#i-feel").on("click", function (event){
@@ -155,7 +158,6 @@ console.log(source);
   });
 };
 
-
 //GET THE GIFS
 //GET ALL THE GIFS
 
@@ -183,6 +185,18 @@ function getFromGiphy(callType, string) {
 			}
 		}
 	}
+}
+
+
+
+//Takes an array of amusing sayings and swaps a random one into the tinytext.
+function tinyTextSwap(array) {
+	$("#tinytext").text(array[random(array.length)]);
+}
+
+//just spits out a random number
+function random(max) {
+	return Math.floor(Math.random()*max+1);
 }
 
 function giphyAJAX (url, callback) {
