@@ -15,6 +15,8 @@ window.onload = function() {
 $("#i-feel").on("click", function (event){
 	event.preventDefault();
 	var input = $("#emo-input").val();
+	// $("#gif-area").toggleClass("hidden");
+	$("#gif-area").show();
 	getResponseGifs(input);
 	reaction = input;
 });
@@ -26,7 +28,8 @@ $("#emo-input").keypress(function(event) {
 	if (event.which == 13) {
 		event.preventDefault();
 		var input = $("#emo-input").val();
-		$("#gif-area").toggleClass("hidden");
+		// $("#gif-area").toggleClass("hidden");
+		$("#gif-area").show();
 		getResponseGifs(input);
 		reaction = input;
 	}
@@ -36,7 +39,8 @@ $("#emo-input").keypress(function(event) {
 $(".gif-dump").on("click", ".gif", function(){
 	var gifURL = $(this).attr("src");
 	postNewResponse(articleData, reaction, gifURL);
-	$("#gif-area").toggleClass("hidden");
+	// $("#gif-area").toggleClass("hidden");
+	$("#gif-area").hide();
 	resetAll();
 })
 
