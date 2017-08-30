@@ -236,7 +236,7 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 	//If the post is a response
 	if (gifURL) {
 		image = $("<img>").attr({class:"gif", src:gifURL});
-		if (timestamp && reaction) {
+		if (timestamp) {
 			newNewsItem.attr({class:"news-article resp", id: "fetched-article"}); //TODO change the ID to be meaningful or delete it.
 			var reactionTime = $("<div>").attr("class","response-time").text(moment(timestamp).format("ddd, h:mm A"));
 			var reaction = $("<div>").attr("class","reaction").text('"'+reaction+'"');
@@ -313,6 +313,6 @@ function displayFeed(){
     newNewsItem.addClass("hidden");
     newDiv.append(newNewsItem);
 
-     $("#feed-container").append(newDiv);
+     $("#feed-container").prepend(newDiv);
   });
 };

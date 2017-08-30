@@ -1,10 +1,4 @@
 
-// var config,
-//     dbref,
-//     db;
-
-// $(document).on("ready", function() {
-
 // Initialize Firebase
 function init() {
   console.log("init running");
@@ -88,10 +82,8 @@ function initApp() {
       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
       var token = result.credential.accessToken;
       // [START_EXCLUDE]
-      // document.getElementById('quickstart-oauthtoken').textContent = token;
       console.log("token:"+token);
     } else {
-      // document.getElementById('quickstart-oauthtoken').textContent = 'null';
 
       // [END_EXCLUDE]
     }
@@ -108,15 +100,14 @@ function initApp() {
     // [START_EXCLUDE]
     if (errorCode === 'auth/account-exists-with-different-credential') {
       alert('You have already signed up with a different auth provider for that email.');
-      // If you are using multiple auth providers on your app you should handle linking
-      // the user's accounts here.
+
     } else {
       console.error(error);
     }
     // [END_EXCLUDE]
   });
   // [END getidptoken]
-  // Listening for auth state changes.
+
   // [START authstatelistener]
   firebase.auth().onAuthStateChanged(function(user) {
     console.log("AUTH STATE CHANGE");
@@ -133,15 +124,14 @@ function initApp() {
       var providerData = user.providerData;
 
       // [START_EXCLUDE]
+
+      //This could greet our user.
       if (displayName == null) {
         // document.getElementById('profile-dropdown').textContent = "Howdy, you!"; //
 
       } else {
         // document.getElementById('profile-dropdown').textContent = "Howdy, " + displayName; //
       }
-
-      // document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
-
 
       $(".loader").fadeOut();
       console.log("Successfully Signed in");

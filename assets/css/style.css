@@ -1,6 +1,5 @@
 body{
     background-image: url("../images/pink dust.png");
-
 }
 
 .jumbotron{
@@ -57,9 +56,6 @@ button:active {
   width: 24%;
 }
 
-header, #user-area{
-  /*display: none;*/
-}
 /*Loading screen*/
 .loader {
 	position: absolute;
@@ -112,12 +108,6 @@ header, #user-area{
   height: 100px;
 }
 
-/*.loader .loading-small {
-  display: grid;
-  grid-template-columns: 100px;
-  justify-content: center;
-}*/
-
 .gif {
   max-width: 200px;
 }
@@ -158,8 +148,8 @@ header, #user-area{
 /*Used for reaction article display*/
 .news-article .gif {
   grid-area:gif;
-  max-height: 200px;
-  max-width: 200px;
+  min-width: 200px;
+  max-width: 100%;
 }
 .news-article .reaction {
   grid-area:react;
@@ -168,10 +158,6 @@ header, #user-area{
   font-family: fantasy;
   font-style: italic;
   font-size: 1.25em;
-  /*text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 250px;*/
 }
 /*END news article display section*/
 
