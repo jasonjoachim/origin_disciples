@@ -12,17 +12,28 @@ body{
 }
 .panel-body{
     background-color: #454545;
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    font-family: 'Righteous', sans-serif;
+    font-size: 24px;
     color: #ff5252;
 }
 .panel-default {
   border: none;
 }
-#emoField{
-    padding: 20px;
+#emo-form {
+  padding: 12px;
+}
+
+#emo-input{
+    height: 48px;
+    font-size: 24px;
+    padding: 12px;
+    margin-bottom: 12px
+
 }
 .form-group{
   background-color: #454545;
+  padding-bottom: 24px;
 }
 button {
   display: inline-block;
@@ -181,7 +192,7 @@ button:active {
 
 .resp .gif {
   max-width: 100%;
-  max-height: none;
+  max-height: 200px;
 }
 /*END */
 /*START feed page*/
