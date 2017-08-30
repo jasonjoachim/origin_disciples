@@ -51,7 +51,7 @@
         <div class="buttonToolbar signed-in-only">
         <button id="sign-out-btn">Sign Out</button>
         <button target="#feed" id="feed-btn">Feed</button>
-        <button target="#react" id="react-btn">React</button>
+        <button target="#react" id="react-btn">News</button>
         <button target="#diary" id="diary-btn">Diary</button>
         </div>
     </div>
@@ -75,7 +75,7 @@
 
     <div class="container signed-in-only section" id="react">
         <div class="panel panel-default" id="user-area">
-            
+
             <div class="news" id="news-container"></div>
         </div>
 
@@ -93,7 +93,7 @@
                 </form>
                 </div> <!-- id="emoField" -->
         </div> <!-- </form> -->
-        <div class="panel panel-default" id="gif-area">
+        <div class="panel panel-default hidden" id="gif-area">
             <div class="panel-body">Click a gif to save this feeling</div>
 
         <div class="gif-dump"></div>
@@ -103,14 +103,14 @@
 
     <div class="container signed-in-only section hidden" id="diary">
         <div class="panel panel-default">
-            <em><h4 class="panel-default panel-body">Here's your feelings:</h4></em>
+            <em><h4 class="panel-default panel-body">Your feelings over time:</h4></em>
         </div>
             <div class="timeline" id="diary-container"></div>
     </div>
 
     <div class="container signed-in-only section hidden" id="feed">
         <div class="panel panel-default">
-            <em><h4 class="panel-default panel-body">Other people's feelings:</h4></em>
+            <em><h4 class="panel-default panel-body">How the news made us feel:</h4></em>
         </div>
             <div id="feed-container"></div>
     </div>

@@ -25,6 +25,7 @@ $("#emo-input").keypress(function(event) {
 	if (event.which == 13) {
 		event.preventDefault();
 		var input = $("#emo-input").val();
+		$("#gif-area").toggleClass("hidden");
 		getResponseGifs(input);
 		reaction = input;
 	}
@@ -34,6 +35,7 @@ $("#emo-input").keypress(function(event) {
 $(".gif-dump").on("click", ".gif", function(){
 	var gifURL = $(this).attr("src");
 	postNewResponse(articleData, reaction, gifURL);
+	$("#gif-area").toggleClass("hidden");
 	resetAll();
 })
 

@@ -67,6 +67,12 @@ button:active {
   width: 24%;
 }
 
+#sign-in-btn {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
 /*Loading screen*/
 .loader {
 	position: absolute;
@@ -85,13 +91,10 @@ button:active {
   width: 100%;
   height: 100%;
   z-index: 9998;
-/*  background: rgb(249,249,249);*/
 }
 
 .goodbye-div {
-  /*  position: fixed;
-    left: 0px;
-    top: 0px;*/
+
   width: 100vh;
   height: 100vh;
   z-index: 9999;
@@ -131,9 +134,7 @@ button:active {
                        "time react react";
   grid-gap: 10px;
   grid-template-columns: repeat(3, 1fr);
-  /*grid-template-rows: auto 200px;*/
   justify-self: center;
-  /*max-width: 400px;*/
   min-width: 240px;
   padding: 20px;
   background-color: #454545;
@@ -168,6 +169,7 @@ button:active {
   color: #008070;
   font-family: fantasy;
   font-style: italic;
+  color: white;
   font-size: 1.25em;
 }
 /*END news article display section*/
@@ -177,7 +179,6 @@ button:active {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
-  /*justify-items: center;*/
 }
 
 .resp {
@@ -215,6 +216,7 @@ button:active {
 
 /*END feed container*/
 /*START utility*/
-.hidden{
-  display: hide;
-}
+/*This class is part of bootstrap by the way*/
+/*.hidden{
+  display: none;
+}*/
