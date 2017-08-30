@@ -1,9 +1,7 @@
 
 //MAIN
-var reaction; //gets updated when 'i feel' button is clicked
+var reaction;
 var articleData;
-var head;
-var subhead;
 var sourceArray = ["al-jazeera-english", "the-washington-post", "breitbart-news", "bbc-news"];
 var source;
 
@@ -11,16 +9,7 @@ var source;
 window.onload = function() {
 	init(); //load up firebase
 	initApp(); //sign in with firebase.auth()
-
 };
-
-
-//Defunct //TODO remove.
-// $("#sign-out").on("click", function (event){
-// 	toggleSignIn();
-// 	$("#profile-dropdown").html("Welcome - sign in below");
-// 	// $("#user-area").hide();
-// });
 
 $("#i-feel").on("click", function (event){
 	event.preventDefault();
@@ -41,6 +30,50 @@ $("#emo-input").keypress(function(event) {
 	}
 });
 
+// Saves to firebase and resets the feed
+$(".gif-dump").on("click", ".gif", function(){
+	var gifURL = $(this).attr("src");
+	postNewResponse(articleData, reaction, gifURL);
+	resetAll();
+})
+
+$("#sign-out-btn").on("click", function (event) {
+	firebase.auth().signOut();
+	$(".goodbye-div").toggleClass("hidden");
+	$(".jumbotron-container").toggleClass("hidden");
+	setTimeout(sayBye, 2.5 * 1000);
+	setTimeout(revealJumbotron, 2.5 * 1000);
+});
+
+$("#sign-in-btn").on("click", function (event) {
+  toggleSignIn();
+});
+
+$(".buttonToolbar").on("click", function(event) {
+	var thisSection = $(event.target).attr("target");
+	if (thisSection == "sign-in-out-btn") {
+		toggleSignIn();
+	} else {
+		showOnly(thisSection)
+	}
+});
+
+$("#feed").on("click", ".feed-box", function(){
+    if ($("img", this).attr("value") === "hide"){
+      $("img", this).removeClass("hidden");
+      $(".feed-news-box", this).addClass("hidden");
+      $("img", this).attr("value", "show");
+    } else {
+      $("img", this).addClass("hidden");
+      $(".feed-news-box", this).removeClass("hidden");
+      $("img", this).attr("value", "hide");
+    }
+});
+
+
+// ======= END click handlers ==========
+// ======= Function Definitions ========
+
 function sayBye(){
 	$(".goodbye-div").toggleClass("hidden");
 }
@@ -56,52 +89,6 @@ function getResponseGifs(input) {
 	getFromGiphy("search", input);
 	$("#emo-input").val('');
 }
-
-	// CLICK HANDLER THAT ACTUALLY SAVES TO FIREBASE AND RESETS the feed:
-	$(".gif-dump").on("click", ".gif", function(){
-
-		var gifURL = $(this).attr("src");
-		console.log(articleData);
-		console.log(reaction);
-		console.log(gifURL);
-		postNewResponse(articleData, reaction, gifURL);
-		resetAll();
-	})
-
-	$("#sign-out-btn").on("click", function (event) {
-		firebase.auth().signOut();
-		$(".goodbye-div").toggleClass("hidden");
-		$(".jumbotron-container").toggleClass("hidden");
-		setTimeout(sayBye, 2.5 * 1000);
-		setTimeout(revealJumbotron, 2.5 * 1000);
-	});
-
-	$("#sign-in-btn").on("click", function (event) {
-	  toggleSignIn();
-	});
-
-	$(".buttonToolbar").on("click", function(event) {
-		var thisSection = $(event.target).attr("target");
-		if (thisSection == "sign-in-out-btn") {
-			toggleSignIn();
-		} else {
-			showOnly(thisSection)
-			if (thisSection == "#feed") {
-				// displayFeed(); //TODO I want to change this later.
-			} else if (thisSection == "#react") {
-				//displayAllFromUser() //TODO fix this stuff.
-			} else if (thisSection == "#diary") {
-
-			}
-		}
-
-
-	});
-
-
-
-// ======= END click handlers ==========
-// ======= Function Definitions ========
 
 //Show only the passed in section
 function showOnly(someDiv) {
@@ -124,7 +111,7 @@ function hideAllSections() {
 		$("#feed").addClass("hidden");
 	}
 }
-
+//Start up firebase DB.
 function initDB() {
   config = {
    apiKey: "AIzaSyDscLKYL_bkXbpsMx0W3eZBlORMwco9qOI",
@@ -144,7 +131,6 @@ function pickNewSource () {
 
 // Returns 10 popular article
 function getNews(source) {
-// function getNews(source, sortBy) { //can also specify an option for sorting
 console.log(source);
 
   var queryUrl = "https://newsapi.org/v1/articles?"
@@ -157,16 +143,11 @@ console.log(source);
     method: "GET"
   }).done(function(response){
   	console.log(response);
-
     var randomArticleNumber = Math.round(Math.random() * (response.articles.length - 1));
-    console.log(randomArticleNumber);
-
 		var newsItem = response.articles[randomArticleNumber];
-
 		while (!newsItem.description && randomArticleNumber<9) {
 			var newsItem = response.articles[randomArticleNumber++];
 		}
-
 			$("#news-container").append(newsItemHTML(newsItem));
 			articleData = newsItem; //Save the articleData for later use by the write new post function
   });
@@ -213,12 +194,10 @@ $.ajax({
 }
 
 function giphySearchAPI(response) {
-	// console.log(response.data["0"].images.downsized_large.url);
 	console.log("running search");
 	for (var i = 0; i < response.data.length; i++) {
 		putGifOnPage([response.data[i].images.downsized_large.url])
 	}
-	// putGifOnPage([response.data["0"].images.downsized_large.url])
 }
 
 function giphyTranslateAPI(response) {
@@ -229,18 +208,6 @@ function giphyRandomAPI(response) {
 	putGifOnPage([response.data.image_original_url])
 }
 
-//DEFUNCT
-// function displayRandomGif() {
-// 	reaction = $("#emo-input").val().trim();
-// 	if (reaction.indexOf(" ") === -1){
-// 	// console.log("response verified")
-//
-// 	//loop through ajax requests to get 10 random images
-// 		for (i=0; i<10; i++){
-// 			getFromGiphy("random");
-// 		}
-// 	}
-// }
 
 function putGifOnPage(urlArray) {
 	console.log(urlArray);
@@ -251,12 +218,6 @@ function putGifOnPage(urlArray) {
 		newGif.attr("class", "gif");
 		$(".gif-dump").append(newGif);
 	}
-	// url.forEach(function(item) {
-	// 	var newGif = $("<img>")
-	// 	newGif.attr("src", url);
-	// 	newGif.attr("class", "gif");
-	// 	$(".gif-dump").append(newGif);
-	// });
 }
 
 //Takes an object with headline, description, url, imageurl and generates proper HTML
@@ -294,11 +255,7 @@ function newsItemHTML(newsItem, reaction, gifURL, timestamp) {
 
 //Takes a user id and spits out the result to a div with id "day1".
 function displayAllFromUser(uid){
-	//Line below also workd, we might need it later.
-	// firebase.database().ref('/user-responses/' + uid).once('value').then(function(snapshot) {
-
-	firebase.database().ref('/user-responses/' + uid).limitToLast(10).on('child_added', function(snap) {
-		// console.log(snap.val());
+	firebase.database().ref('/user-responses/' + uid).limitToLast(25).on('child_added', function(snap) {
 		$(".timeline").prepend( newsItemHTML( snap.val().article,
 																		 snap.val().reactionText,
 																		 snap.val().gifURL,
@@ -306,18 +263,9 @@ function displayAllFromUser(uid){
 	});
 }
 
-//This is the command to get the last ten responses.
-// firebase.database().ref('/responses/' ).limitToLast(10).once('value').then(function(snap) {
-// 	snap.forEach(function(childSnapshot) {
-// 		console.log(childSnapshot.val());
-// 	});
-// });
 
-
-//TODO This can write to the DB without a displayname attached.
 // Accepts articleData as an obj, reaction string, and gifURL string. Pushes to firebase.
 function postNewResponse(articleData, reaction, gifURL) {
-
   // Get a key for a new Post.
   var newKey = firebase.database().ref().child('responses').push().key;
 	var uid = firebase.auth().currentUser.uid;
@@ -349,34 +297,14 @@ function resetAll() {
 	getNews(source);
 }
 
-$("#feed").on("click", ".feed-box", function(){
-
-
-    if ($("img", this).attr("value") === "hide"){
-      $("img", this).removeClass("hidden");
-      $(".feed-news-box", this).addClass("hidden");
-      $("img", this).attr("value", "show");
-
-    } else {
-      $("img", this).addClass("hidden");
-      $(".feed-news-box", this).removeClass("hidden");
-      $("img", this).attr("value", "hide");
-    }
-
-
-});
-
 function displayFeed(){
-
-  firebase.database().ref("/responses").limitToLast(10).on("child_added", function(snapshot){
+  firebase.database().ref("/responses").limitToLast(25).on("child_added", function(snapshot){
 
     var gifURL = snapshot.val().gifURL;
     var link = snapshot.val().article.url;
     var title = snapshot.val().article.title;
     var description = snapshot.val().article.description;
     var newsItem = snapshot.val().article
-
-    // var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'><div class='feed-news-box hidden'><h2>" + title + "</h2><p>" + description + "</p></div></div><br>");
 
     var newDiv = $("<div class='feed-box'><img src='" + gifURL + "' value='show' class='feed-GIF'></div>");
 

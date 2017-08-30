@@ -62,11 +62,11 @@ header, #user-area{
 }
 /*Loading screen*/
 .loader {
-/*	position: absolute;
+	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 100vh;
-	height: 100vh;*/
+	width: 100%;
+	height: 100%;
 	z-index: 9998;
 	background: rgb(249,249,249);
   display: flex;
@@ -75,8 +75,8 @@ header, #user-area{
 }
 
 .loader img {
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 9998;
 /*  background: rgb(249,249,249);*/
 }

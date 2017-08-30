@@ -143,7 +143,7 @@ function initApp() {
       // document.getElementsByTagName('header')[0].style.display = 'block'; //Show the hidden areas.
 
 
-      $(".loader").fadeOut(2000);
+      $(".loader").fadeOut();
       console.log("Successfully Signed in");
       source = pickNewSource();
   		getNews(source);
@@ -160,19 +160,14 @@ function initApp() {
       // User is signed out.
       // [START_EXCLUDE]
 
-      // document.getElementById('sign-in-area').style.display = 'block'; //Show the hidden areas.
-
-
       // [END_EXCLUDE]
     }
 
-    // [START_EXCLUDE]
-    // $(".loader").fadeOut("slow");
+
     document.getElementById('sign-in-btn').disabled = false; //disable the sign in button
     // [END_EXCLUDE]
   });
   // [END authstatelistener]
-  // document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
 }
 
 
