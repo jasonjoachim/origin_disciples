@@ -1,3 +1,3 @@
-# My Response When
+# My Reaction When
 
-[My Response When](https://jasonjoachim.github.io/origin_disciples/)
+[My Reaction When](https://jasonjoachim.github.io/origin_disciples/)
